@@ -2,20 +2,20 @@
     //Constructor
     function AutofilerRule(id) {
         this.name = "";
-        this.purgeTimeoutSec = 0;
-        this.purgeTimeoutDays = 0;
+        this.purgeTimeoutSec = -1;
+        this.purgeTimeoutDays = -1;
         this.basefolders = [];
         this.archival = "";
-        this.upperLimit = 0;
-        this.lowerLimit = 0;
+        this.upperLimit = -1;
+        this.lowerLimit = -1;
         this.time = "";
         this.enabled = true;
         this.interval = "";
-        this.archTimeout = 0;
-        this.archTimeoutDays = 0;
+        this.archTimeout = -1;
+        this.archTimeoutDays = -1;
         this.purgeActive = "";
-        this.maxRffQueue = 0;
-        this.rffMaxArchTimeout = 0;
+        this.maxRffQueue = -1;
+        this.rffMaxArchTimeout = -1;
         this.enableStatecheck = "";
         this.minimum = "";
         this.name = id;
@@ -67,18 +67,27 @@
     };
 
     AutofilerRule.prototype.CreateTableRow = function () {
-        var properties = Object.getOwnPropertyNames(this);
+        //Get member variables of this class
+        var memVars = Object.getOwnPropertyNames(this);
 
+        //Create a blank table row
         var row = document.createElement('tr');
 
-        for (var propRef in properties) {
-            var property = properties[propRef];
+        for (var propRef in memVars) {
+            var property = memVars[propRef];
             var cell = row.insertCell(propRef);
 
-            if (this[property] == 0) {
+            //If value was not set leave blank, temp workaround
+            if (this[property] == -1) {
                 cell.innerHTML = "";
             } else {
-                cell.innerHTML = this[property];
+                //Special case to set basefolder array separators
+                if (property == "basefolders") {
+                    var temp = this[property];
+                    cell.innerHTML = temp.join(", ");
+                } else {
+                    cell.innerHTML = this[property];
+                }
             }
         }
         return row;

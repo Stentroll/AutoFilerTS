@@ -3,24 +3,45 @@
 var ruleList : AutofilerRule[];
 ruleList = [];
 
+var txtFilterId: HTMLInputElement;
+var txtFilterName: HTMLInputElement;
+var cbHideDisabled: HTMLInputElement;
+
 window.onload = () => {
     var el = document.getElementById('content');
-
     var ruletextarea = document.getElementById('ruletextarea');
-    var elem = document.getElementById('butbut');
+    var btnParse = document.getElementById('btnParse');
 
-    elem.onclick = (ev: Event) => {
+    txtFilterId = <HTMLInputElement> document.getElementById('txtFilterId');
+    txtFilterName = <HTMLInputElement> document.getElementById('txtFilterName');
+    cbHideDisabled = <HTMLInputElement> document.getElementById('cbHideDisabled');
+
+    txtFilterId.oninput = (ev: Event) => {
+        alert("changed");
+    }
+
+    btnParse.onclick = (ev: Event) => {
         ParseAutofilerCfg();
+
+        console.log("Rules found:" + ruleList.length);
+
+        if (ruleList.length > 0) {
+            txtFilterId.disabled = false;
+            txtFilterName.disabled = false;
+            cbHideDisabled.disabled = false;
+        }
+
         BuildTable();
     }
 };
 
 document.getElementById('ruletextarea').onchange = (ev : Event) => {
-    document.getElementById('ruletextarea').innerHTML = "huhhh";
     //console.log("text changed");
 
     //console.log(document.getElementById('ruletextarea').innerHTML);
 };
+
+
 
 function BuildTable() {
     
@@ -30,6 +51,8 @@ function BuildTable() {
     var tbody = <HTMLTableElement> newtable.createTBody();
     var headrow: HTMLTableRowElement = <HTMLTableRowElement> thead.insertRow();
     var properties = Object.getOwnPropertyNames(new AutofilerRule(null));
+
+    newtable.className = 'table-responsive';
 
     for (var propRef in properties) {
         var propertyName = properties[propRef];

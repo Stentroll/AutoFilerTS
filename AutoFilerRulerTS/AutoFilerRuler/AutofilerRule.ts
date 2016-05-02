@@ -1,19 +1,19 @@
 ﻿class AutofilerRule {
     name: string = "";
-    purgeTimeoutSec: number = 0;
-    purgeTimeoutDays: number = 0;
+    purgeTimeoutSec: number = -1;
+    purgeTimeoutDays: number = -1;
     basefolders: string[] = [];
     archival: string = "";
-    upperLimit: number = 0;
-    lowerLimit: number = 0;
+    upperLimit: number = -1;
+    lowerLimit: number = -1;
     time: string = "";
     enabled: boolean = true;
     interval: string = "";
-    archTimeout: number = 0;
-    archTimeoutDays: number = 0;
+    archTimeout: number = -1;
+    archTimeoutDays: number = -1;
     purgeActive: string = "";
-    maxRffQueue: number = 0;
-    rffMaxArchTimeout: number = 0;
+    maxRffQueue: number = -1;
+    rffMaxArchTimeout: number = -1;
     enableStatecheck: string = "";
     minimum: string = "";
 
@@ -22,7 +22,7 @@
         this.name = id;
     }
 
-    set(field: string, value: string) {
+    set(field: string, value: string) : void {
         //console.log("Setting field: " + field + " to: " + value);
 
         if (field === "interval") {
@@ -80,24 +80,36 @@
         }
     }
 
-    public SayHello() {
+    public SayHello() : void {
         console.log("Hello! I am rule " + this.name);
     }
 
-    public CreateTableRow() {
-        var properties = Object.getOwnPropertyNames(this);
+    public CreateTableRow(): HTMLTableRowElement {
+        //Get member variables of this class
+        var memVars = Object.getOwnPropertyNames(this);
 
+        //Create a blank table row
         var row: HTMLTableRowElement = document.createElement('tr');
 
-        for (var propRef in properties) {
-            var property = properties[propRef];
+        //For each variable add a new cell
+        for (var propRef in memVars) {
+            var property = memVars[propRef];
             var cell = row.insertCell(propRef);
 
-            if (this[property] == 0) {
+            //If value was not set leave blank, temp workaround
+            if (this[property] == -1) {
                 cell.innerHTML = "";
             }
             else {
-                cell.innerHTML = this[property];
+                //Special case to set basefolder array separators
+                if (property == "basefolders") {
+                    var temp: string[] = this[property];
+                    cell.innerHTML = temp.join(", ");
+                }
+                else
+                {
+                    cell.innerHTML = this[property];
+                }
             }
         }
         return row;

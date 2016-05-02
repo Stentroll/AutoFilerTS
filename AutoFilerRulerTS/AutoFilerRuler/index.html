@@ -3,21 +3,23 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Autofiler Ruler</title>
+    <title>AF Config Parser</title>
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
     <link rel="stylesheet" href="app.css" type="text/css" />
     <script src="app.js"></script>
     <script src="AutofilerRule.js"></script>
 </head>
     <body>
-        <h1>Autofiler Ruler</h1>
+        <h1>AF Config Parser</h1>
 
         <div id="content"></div>
 
-
-        <div>
-
-            
-    <textarea id="ruletextarea" rows="20" cols="200">#
+        <div>            
+            <textarea id="ruletextarea" rows="20" cols="200">#
 #	Creator: $Id: w_config_autof.C,v 1.40 2010/04/20 09:43:12 mi-sto Exp $
 #	Created: 11/06/14 14:18:27
 #
@@ -740,7 +742,27 @@ auto_archive {
     }
 }
 verbose <1></textarea>
+        </div>
 
+        <p>
+            <button id="btnParse">button yo</button>
+        </p>
+
+        <div id="filters">
+            <h2>Filters</h2>
+            <div>
+                <label class="filterlabel">Basefolder ID: </label>
+                <input type="text" disabled="disabled" id="txtFilterId"/>
+            </div>
+
+            <div>
+                <label class="filterlabel">Rule name: </label>
+                <input type="text" disabled="disabled" id="txtFilterName"/>
+            </div>
+            <div>
+                <label class="filterlabel">Hide Disabled Rules: </label>
+                <input type="checkbox" disabled="disabled" id="cbHideDisabled"/>
+            </div>
         </div>
 
     <h2>Autofiler Rules</h2>
@@ -749,12 +771,7 @@ verbose <1></textarea>
       <table id="nicetable" class="table table-hover">
       </table>
     </div>
-
-    <p>
-        <button id="butbut">button yo</button>
-    </p>
-
-    </body>
+  </body>
 
 
 </html>

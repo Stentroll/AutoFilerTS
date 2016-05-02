@@ -2,7 +2,7 @@
     font-family: 'Segoe UI', sans-serif;
     background-color: #222;
     color: #ddd;
-
+    margin: 20px;
 }
 
 span {
@@ -15,6 +15,34 @@ tr:hover {
 }
 
 table {
-    width: 1000px;
+    width: 1200px;
     font-size: 12px;
+}
+
+thead {
+    font-size: 16px;
+}
+
+th, td {
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: left;
+    border:thin;
+    border-color:red;
+    white-space: nowrap;
+}
+
+#ruletextarea {
+    color: #444;
+    font-size: 12px;
+}
+
+input {
+    color: #444;
+    font-size: 12px;
+    width: 40px;
+}
+
+.filterlabel {
+    width: 160px;
 }

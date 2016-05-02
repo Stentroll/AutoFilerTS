@@ -2,20 +2,39 @@
 var ruleList;
 ruleList = [];
 
+var txtFilterId;
+var txtFilterName;
+var cbHideDisabled;
+
 window.onload = function () {
     var el = document.getElementById('content');
-
     var ruletextarea = document.getElementById('ruletextarea');
-    var elem = document.getElementById('butbut');
+    var btnParse = document.getElementById('btnParse');
 
-    elem.onclick = function (ev) {
+    txtFilterId = document.getElementById('txtFilterId');
+    txtFilterName = document.getElementById('txtFilterName');
+    cbHideDisabled = document.getElementById('cbHideDisabled');
+
+    txtFilterId.oninput = function (ev) {
+        alert("changed");
+    };
+
+    btnParse.onclick = function (ev) {
         ParseAutofilerCfg();
+
+        console.log("Rules found:" + ruleList.length);
+
+        if (ruleList.length > 0) {
+            txtFilterId.disabled = false;
+            txtFilterName.disabled = false;
+            cbHideDisabled.disabled = false;
+        }
+
         BuildTable();
     };
 };
 
 document.getElementById('ruletextarea').onchange = function (ev) {
-    document.getElementById('ruletextarea').innerHTML = "huhhh";
     //console.log("text changed");
     //console.log(document.getElementById('ruletextarea').innerHTML);
 };
@@ -27,6 +46,8 @@ function BuildTable() {
     var tbody = newtable.createTBody();
     var headrow = thead.insertRow();
     var properties = Object.getOwnPropertyNames(new AutofilerRule(null));
+
+    newtable.className = 'table-responsive';
 
     for (var propRef in properties) {
         var propertyName = properties[propRef];
