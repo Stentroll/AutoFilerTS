@@ -17,14 +17,23 @@ window.onload = () => {
     cbHideDisabled = <HTMLInputElement> document.getElementById('cbHideDisabled');
 
     txtFilterId.oninput = (ev: Event) => {
-        alert("changed");
+        
     }
 
     btnParse.onclick = (ev: Event) => {
         ParseAutofilerCfg();
 
-        console.log("Rules found:" + ruleList.length);
+        var tempList = [];
 
+        ruleList = ruleList.filter(FilterBfId, 111);
+
+        console.log("Rules found:" + ruleList.length);
+        console.log("Filtertest :" + tempList.length);
+        console.log(tempList);
+
+        for (var rule in tempList) {
+        }
+        
         if (ruleList.length > 0) {
             txtFilterId.disabled = false;
             txtFilterName.disabled = false;
@@ -41,7 +50,15 @@ document.getElementById('ruletextarea').onchange = (ev : Event) => {
     //console.log(document.getElementById('ruletextarea').innerHTML);
 };
 
-
+function FilterBfId(rule) {
+    var tmp: number[] = rule.basefolders;
+    if (tmp.indexOf(this.valueOf()) === -1) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 
 function BuildTable() {
     

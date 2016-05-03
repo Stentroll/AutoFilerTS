@@ -41,7 +41,7 @@
         } else if ((field === "base_folder_ids")) {
             try  {
                 value = value.replace(",", " ");
-                var temp = value.split(" ");
+                var temp = value.split(" ").map(Number);
                 this.basefolders = temp;
             } catch (Exception) {
                 this.basefolders = [];

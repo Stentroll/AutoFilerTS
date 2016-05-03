@@ -2,7 +2,7 @@
     name: string = "";
     purgeTimeoutSec: number = -1;
     purgeTimeoutDays: number = -1;
-    basefolders: string[] = [];
+    basefolders: number[] = [];
     archival: string = "";
     upperLimit: number = -1;
     lowerLimit: number = -1;
@@ -50,7 +50,7 @@
         else if ((field === "base_folder_ids")) {
             try {
                 value = value.replace(",", " ");
-                var temp = value.split(" ");
+                var temp = value.split(" ").map(Number);
                 this.basefolders = temp;
             }
             catch (Exception) {
@@ -114,4 +114,6 @@
         }
         return row;
     }
+
+
 }

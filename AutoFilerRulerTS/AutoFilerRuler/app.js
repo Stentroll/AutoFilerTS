@@ -16,13 +16,21 @@ window.onload = function () {
     cbHideDisabled = document.getElementById('cbHideDisabled');
 
     txtFilterId.oninput = function (ev) {
-        alert("changed");
     };
 
     btnParse.onclick = function (ev) {
         ParseAutofilerCfg();
 
+        var tempList = [];
+
+        ruleList = ruleList.filter(FilterBfId, 111);
+
         console.log("Rules found:" + ruleList.length);
+        console.log("Filtertest :" + tempList.length);
+        console.log(tempList);
+
+        for (var rule in tempList) {
+        }
 
         if (ruleList.length > 0) {
             txtFilterId.disabled = false;
@@ -38,6 +46,15 @@ document.getElementById('ruletextarea').onchange = function (ev) {
     //console.log("text changed");
     //console.log(document.getElementById('ruletextarea').innerHTML);
 };
+
+function FilterBfId(rule) {
+    var tmp = rule.basefolders;
+    if (tmp.indexOf(this.valueOf()) === -1) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 function BuildTable() {
     var tbl = document.getElementById("nicetable");
