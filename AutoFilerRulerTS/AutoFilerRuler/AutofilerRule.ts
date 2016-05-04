@@ -32,7 +32,14 @@
             this.time = value;
         }
         else if ((field === "enable")) {
-            this.enabled = !!value;
+            console.log(value);
+
+            if (value.indexOf("true") === -1) {
+                this.enabled = false;
+            }
+            else {
+                this.enabled = true;
+            }
         }
         else if ((field === "purge_timeout")) {
             this.purgeTimeoutSec = Number(value);

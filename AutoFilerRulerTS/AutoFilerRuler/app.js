@@ -21,16 +21,7 @@ window.onload = function () {
     btnParse.onclick = function (ev) {
         ParseAutofilerCfg();
 
-        var tempList = [];
-
-        ruleList = ruleList.filter(FilterBfId, 111);
-
         console.log("Rules found:" + ruleList.length);
-        console.log("Filtertest :" + tempList.length);
-        console.log(tempList);
-
-        for (var rule in tempList) {
-        }
 
         if (ruleList.length > 0) {
             txtFilterId.disabled = false;
@@ -38,6 +29,16 @@ window.onload = function () {
             cbHideDisabled.disabled = false;
         }
 
+        BuildTable();
+    };
+
+    txtFilterId.onkeyup = function () {
+        BuildTable();
+    };
+    txtFilterName.onkeyup = function () {
+        BuildTable();
+    };
+    cbHideDisabled.onchange = function () {
         BuildTable();
     };
 };
@@ -56,15 +57,48 @@ function FilterBfId(rule) {
     }
 }
 
+function FilterRuleName(rule) {
+    var tmp = rule.name;
+    tmp = tmp.toLowerCase();
+    if (tmp.indexOf(this.toLowerCase()) === -1) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function FilterRuleEnabled(rule) {
+    return rule.enabled;
+}
+
 function BuildTable() {
+    var tmpList;
+    tmpList = ruleList;
+
+    console.log(txtFilterId.value.length);
+
+    //Handle filtering functions
+    if (txtFilterId.value.length != 0) {
+        tmpList = tmpList.filter(FilterBfId, Number(txtFilterId.value));
+    }
+
+    if (txtFilterName.value.length != 0) {
+        tmpList = tmpList.filter(FilterRuleName, txtFilterName.value);
+    }
+
+    if (cbHideDisabled.checked) {
+        tmpList = tmpList.filter(FilterRuleEnabled, true);
+    }
+
     var tbl = document.getElementById("nicetable");
-    var newtable = document.createElement('table');
+    var newtable = document.createElement("table");
     var thead = newtable.createTHead();
     var tbody = newtable.createTBody();
     var headrow = thead.insertRow();
     var properties = Object.getOwnPropertyNames(new AutofilerRule(null));
 
     newtable.className = 'table-responsive';
+    newtable.id = "nicetable";
 
     for (var propRef in properties) {
         var propertyName = properties[propRef];
@@ -72,11 +106,12 @@ function BuildTable() {
         hcell.innerHTML = propertyName;
     }
 
-    for (var ruleRef in ruleList) {
-        var rule = ruleList[ruleRef];
+    for (var ruleRef in tmpList) {
+        var rule = tmpList[ruleRef];
         var row = rule.CreateTableRow();
 
         tbody.appendChild(row);
+
         document.getElementById("tablediv").removeChild(tbl);
         document.getElementById("tablediv").appendChild(newtable);
         tbl = newtable;

@@ -23,17 +23,8 @@ window.onload = () => {
     btnParse.onclick = (ev: Event) => {
         ParseAutofilerCfg();
 
-        var tempList = [];
-
-        ruleList = ruleList.filter(FilterBfId, 111);
-
         console.log("Rules found:" + ruleList.length);
-        console.log("Filtertest :" + tempList.length);
-        console.log(tempList);
 
-        for (var rule in tempList) {
-        }
-        
         if (ruleList.length > 0) {
             txtFilterId.disabled = false;
             txtFilterName.disabled = false;
@@ -42,6 +33,10 @@ window.onload = () => {
 
         BuildTable();
     }
+
+    txtFilterId.onkeyup = () => { BuildTable(); };
+    txtFilterName.onkeyup = () => { BuildTable(); };
+    cbHideDisabled.onchange = () => { BuildTable(); };
 };
 
 document.getElementById('ruletextarea').onchange = (ev : Event) => {
@@ -60,16 +55,50 @@ function FilterBfId(rule) {
     }
 }
 
+function FilterRuleName(rule) {
+    var tmp: string = rule.name;
+    tmp = tmp.toLowerCase();
+    if (tmp.indexOf(this.toLowerCase()) === -1) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+function FilterRuleEnabled(rule) {
+    return rule.enabled;
+}
+
+
 function BuildTable() {
-    
+    var tmpList: AutofilerRule[];
+    tmpList = ruleList;
+
+    console.log(txtFilterId.value.length);
+
+    //Handle filtering functions
+    if (txtFilterId.value.length != 0) {
+        tmpList = tmpList.filter(FilterBfId, Number(txtFilterId.value));
+    }
+
+    if (txtFilterName.value.length != 0) {
+        tmpList = tmpList.filter(FilterRuleName, txtFilterName.value);
+    }
+
+    if (cbHideDisabled.checked) {
+        tmpList = tmpList.filter(FilterRuleEnabled, true);
+    }
+
     var tbl: HTMLTableElement = <HTMLTableElement> document.getElementById("nicetable");
-    var newtable: HTMLTableElement = document.createElement('table');
+    var newtable: HTMLTableElement = document.createElement("table");
     var thead = <HTMLTableElement> newtable.createTHead();
     var tbody = <HTMLTableElement> newtable.createTBody();
     var headrow: HTMLTableRowElement = <HTMLTableRowElement> thead.insertRow();
     var properties = Object.getOwnPropertyNames(new AutofilerRule(null));
 
     newtable.className = 'table-responsive';
+    newtable.id = "nicetable";
 
     for (var propRef in properties) {
         var propertyName = properties[propRef];
@@ -77,11 +106,12 @@ function BuildTable() {
         hcell.innerHTML = propertyName;
     }
 
-    for (var ruleRef in ruleList) {
-        var rule: AutofilerRule = ruleList[ruleRef];
+    for (var ruleRef in tmpList) {
+        var rule: AutofilerRule = tmpList[ruleRef];
         var row : HTMLTableRowElement = rule.CreateTableRow();
 
         tbody.appendChild(row);
+
         document.getElementById("tablediv").removeChild(tbl);
         document.getElementById("tablediv").appendChild(newtable);
         tbl = newtable;

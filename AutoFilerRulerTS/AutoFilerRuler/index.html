@@ -26,7 +26,7 @@
 disk_check {
     12_months {
 	interval <3600>
-	enable <true>
+	enable <false>
 	purge_timeout <12960000>
 	archival <none>
 	lower_limit <90>
@@ -752,16 +752,16 @@ verbose <1></textarea>
             <h2>Filters</h2>
             <div>
                 <label class="filterlabel">Basefolder ID: </label>
-                <input type="text" disabled="disabled" id="txtFilterId"/>
+                <input class="filterInput" type="text" disabled="disabled" id="txtFilterId"/>
             </div>
 
             <div>
                 <label class="filterlabel">Rule name: </label>
-                <input type="text" disabled="disabled" id="txtFilterName"/>
+                <input class="filterInput" type="text" disabled="disabled" id="txtFilterName"/>
             </div>
             <div>
                 <label class="filterlabel">Hide Disabled Rules: </label>
-                <input type="checkbox" disabled="disabled" id="cbHideDisabled"/>
+                <input class="filterInput" type="checkbox" disabled="disabled" id="cbHideDisabled"/>
             </div>
         </div>
 
