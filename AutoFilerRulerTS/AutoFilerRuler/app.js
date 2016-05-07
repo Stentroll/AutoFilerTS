@@ -15,10 +15,18 @@ window.onload = function () {
     txtFilterName = document.getElementById('txtFilterName');
     cbHideDisabled = document.getElementById('cbHideDisabled');
 
-    txtFilterId.oninput = function (ev) {
+    CreateFilterChecks();
+
+    var ButtonClearFilters = document.getElementById('ButtonClearFilters');
+    ButtonClearFilters.onclick = function (ev) {
+        txtFilterId.value = "";
+        txtFilterName.value = "";
+        cbHideDisabled.checked = false;
+        BuildTable();
     };
 
     btnParse.onclick = function (ev) {
+        ruleList = [];
         ParseAutofilerCfg();
 
         console.log("Rules found:" + ruleList.length);
@@ -30,6 +38,8 @@ window.onload = function () {
         }
 
         BuildTable();
+
+        document.getElementById("nicetable").focus();
     };
 
     txtFilterId.onkeyup = function () {
@@ -44,9 +54,11 @@ window.onload = function () {
 };
 
 document.getElementById('ruletextarea').onchange = function (ev) {
-    //console.log("text changed");
-    //console.log(document.getElementById('ruletextarea').innerHTML);
 };
+
+function CheckedChange(ev) {
+    console.log("CheckedChange event");
+}
 
 function FilterBfId(rule) {
     var tmp = rule.basefolders;
@@ -71,11 +83,53 @@ function FilterRuleEnabled(rule) {
     return rule.enabled;
 }
 
+function CreateFilterChecks() {
+    var fields = [];
+    fields.push("name");
+    fields.push("purgeTimeoutSec");
+    fields.push("purgeTimeoutDays");
+    fields.push("basefolders");
+    fields.push("archival");
+    fields.push("upperLimit");
+    fields.push("lowerLimit");
+    fields.push("time");
+    fields.push("enabled");
+    fields.push("interval");
+    fields.push("archTimeout");
+    fields.push("archTimeoutDays");
+    fields.push("purgeActive");
+    fields.push("maxRffQueue");
+    fields.push("rffMaxArchTimeout");
+    fields.push("enableStatecheck");
+    fields.push("minimum");
+
+    for (var field in fields) {
+        var newDiv = document.createElement("div");
+
+        var newCheck = document.createElement("input");
+        newCheck.className = "fieldcheck";
+        newCheck.type = "checkbox";
+        newCheck.checked = true;
+
+        var tag = document.createElement("h5");
+        tag.innerHTML = fields[field];
+
+        newDiv.appendChild(newCheck);
+        newDiv.appendChild(tag);
+
+        document.getElementById("fieldSelectors").appendChild(newDiv);
+
+        newCheck.onchange = function (ev) {
+            return CheckedChange(ev);
+        };
+    }
+
+    var fieldchecks = document.getElementsByClassName("fieldcheck");
+}
+
 function BuildTable() {
     var tmpList;
     tmpList = ruleList;
-
-    console.log(txtFilterId.value.length);
 
     //Handle filtering functions
     if (txtFilterId.value.length != 0) {
@@ -90,6 +144,8 @@ function BuildTable() {
         tmpList = tmpList.filter(FilterRuleEnabled, true);
     }
 
+    document.getElementById('h2RuleCount').innerHTML = "Autofiler Rules: " + tmpList.length;
+
     var tbl = document.getElementById("nicetable");
     var newtable = document.createElement("table");
     var thead = newtable.createTHead();
@@ -97,7 +153,7 @@ function BuildTable() {
     var headrow = thead.insertRow();
     var properties = Object.getOwnPropertyNames(new AutofilerRule(null));
 
-    newtable.className = 'table-responsive';
+    newtable.className = 'table-hover table-responsive';
     newtable.id = "nicetable";
 
     for (var propRef in properties) {

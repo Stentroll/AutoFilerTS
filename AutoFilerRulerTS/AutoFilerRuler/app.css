@@ -7,16 +7,17 @@
 
 span {
     font-style: italic;
-}
-
-tr:hover {
-    color: #FFF;
-    background-color: #444;
+    vertical-align: middle;
 }
 
 table {
     width: 1200px;
     font-size: 12px;
+}
+
+#tablediv {
+    overflow-y: scroll; 
+    height: 800px;
 }
 
 thead {
@@ -46,3 +47,69 @@ input {
 .filterlabel {
     width: 160px;
 }
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #333;
+}
+
+tr:hover {
+    color: #FFF;
+    background-color: #444;
+}
+
+button {
+    color: #000;
+}
+
+#filters {
+    float: left;
+    width: 20%;
+}
+
+#h2RuleCount {
+    clear: both;
+}
+
+label {
+    color: #ddd;
+    font-style: normal;
+}
+
+#fieldSelectors {
+    float: left;
+    width: 20%;
+    clear: none;
+}
+
+#fieldSelectors label span {
+    vertical-align: middle;
+}
+
+#fieldSelectors input {
+    float: left;
+    height: 11px;
+    width: 20px;
+}
+
+#fieldSelectors .label-default {
+    background-color: #333;
+}
+
+#fieldSelectors div {
+    float: left;
+    width: 50%;
+    clear: none;
+    padding: 4px;
+}
+
+#fieldSelectors div:hover {
+    float: left;
+    width: 50%;
+    clear: none;
+    background-color: #333;
+}
+
+#fieldSelectors h5 {
+    margin: 0px;
+}
+

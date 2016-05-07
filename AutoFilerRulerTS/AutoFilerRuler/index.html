@@ -745,7 +745,7 @@ verbose <1></textarea>
         </div>
 
         <p>
-            <button id="btnParse">button yo</button>
+            <button id="btnParse">Parse config</button>
         </p>
 
         <div id="filters">
@@ -754,7 +754,6 @@ verbose <1></textarea>
                 <label class="filterlabel">Basefolder ID: </label>
                 <input class="filterInput" type="text" disabled="disabled" id="txtFilterId"/>
             </div>
-
             <div>
                 <label class="filterlabel">Rule name: </label>
                 <input class="filterInput" type="text" disabled="disabled" id="txtFilterName"/>
@@ -763,13 +762,17 @@ verbose <1></textarea>
                 <label class="filterlabel">Hide Disabled Rules: </label>
                 <input class="filterInput" type="checkbox" disabled="disabled" id="cbHideDisabled"/>
             </div>
+            <button id="ButtonClearFilters">Clear filters</button>
+        </div>
+        
+        <div id="fieldSelectors">
+            <h2>Display columns:</h2>
         </div>
 
-    <h2>Autofiler Rules</h2>
+    <h2 id="h2RuleCount">Autofiler Rules</h2>
       <!--<p>The .table-hover class enables a hover state on table rows:</p>-->
     <div id="tablediv">            
-      <table id="nicetable" class="table table-hover">
-      </table>
+      <table id="nicetable" class="table table-hover"></table>
     </div>
   </body>
 

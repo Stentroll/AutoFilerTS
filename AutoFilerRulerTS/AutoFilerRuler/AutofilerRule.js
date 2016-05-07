@@ -21,15 +21,12 @@
         this.name = id;
     }
     AutofilerRule.prototype.set = function (field, value) {
-        //console.log("Setting field: " + field + " to: " + value);
         if (field === "interval") {
             this.interval = value;
         }
         if (field === "time") {
             this.time = value;
         } else if ((field === "enable")) {
-            console.log(value);
-
             if (value.indexOf("true") === -1) {
                 this.enabled = false;
             } else {
