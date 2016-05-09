@@ -1,4 +1,6 @@
 ﻿///<reference path='AutofilerRule.ts'/>
+///<reference path='jquery.d.ts'/>
+
 
 var ruleList : AutofilerRule[];
 ruleList = [];
@@ -54,7 +56,7 @@ document.getElementById('ruletextarea').onchange = (ev : Event) => {
 };
 
 function CheckedChange(ev) {
-    console.log("CheckedChange event");
+    BuildTable();
 }
 
 function FilterBfId(rule) {
@@ -83,35 +85,37 @@ function FilterRuleEnabled(rule) {
 }
 
 function CreateFilterChecks() {
-    var fields: string[] = [];
-    fields.push("name");
-    fields.push("purgeTimeoutSec");
-    fields.push("purgeTimeoutDays");
-    fields.push("basefolders");
-    fields.push("archival");
-    fields.push("upperLimit");
-    fields.push("lowerLimit");
-    fields.push("time");
-    fields.push("enabled");
-    fields.push("interval");
-    fields.push("archTimeout");
-    fields.push("archTimeoutDays");
-    fields.push("purgeActive");
-    fields.push("maxRffQueue");
-    fields.push("rffMaxArchTimeout");
-    fields.push("enableStatecheck");
-    fields.push("minimum");
+    var fieldNames: string[] = [];
+    fieldNames.push("name");
+    fieldNames.push("purgeTimeoutSec");
+    fieldNames.push("purgeTimeoutDays");
+    fieldNames.push("basefolders");
+    fieldNames.push("archival");
+    fieldNames.push("upperLimit");
+    fieldNames.push("lowerLimit");
+    fieldNames.push("time");
+    fieldNames.push("enabled");
+    fieldNames.push("interval");
+    fieldNames.push("archTimeout");
+    fieldNames.push("archTimeoutDays");
+    fieldNames.push("purgeActive");
+    fieldNames.push("maxRffQueue");
+    fieldNames.push("rffMaxArchTimeout");
+    fieldNames.push("enableStatecheck");
+    fieldNames.push("minimum");
 
-    for (var field in fields) {
+    for (var fieldRef in fieldNames) {
         var newDiv: HTMLDivElement = document.createElement("div");
-        
+        newDiv.classList.add("checkDiv");
+
         var newCheck: HTMLInputElement = document.createElement("input");
         newCheck.className = "fieldcheck";
         newCheck.type = "checkbox";
         newCheck.checked = true;
+        newCheck.id = fieldRef;
 
         var tag: HTMLElement = document.createElement("h5");
-        tag.innerHTML = fields[field];
+        tag.innerHTML = fieldNames[fieldRef];
 
         newDiv.appendChild(newCheck);
         newDiv.appendChild(tag);
@@ -127,7 +131,7 @@ function CreateFilterChecks() {
 function BuildTable() {
     var tmpList: AutofilerRule[];
     tmpList = ruleList;
-    
+    var checksBoolArray: boolean[] = [];
 
     //Handle filtering functions
     if (txtFilterId.value.length != 0) {
@@ -142,27 +146,51 @@ function BuildTable() {
         tmpList = tmpList.filter(FilterRuleEnabled, true);
     }
 
+    var checkboxElementArray = document.getElementsByClassName("fieldcheck");
+
+
+    for (var n = 0; n < checkboxElementArray.length; n++) {
+        var checkboxtmp: HTMLInputElement = <HTMLInputElement>checkboxElementArray[n];
+        checksBoolArray.push(checkboxtmp.checked);
+    }
+
+
+
     document.getElementById('h2RuleCount').innerHTML = "Autofiler Rules: " + tmpList.length;
 
     var tbl: HTMLTableElement = <HTMLTableElement> document.getElementById("nicetable");
     var newtable: HTMLTableElement = document.createElement("table");
-    var thead = <HTMLTableElement> newtable.createTHead();
-    var tbody = <HTMLTableElement> newtable.createTBody();
+    var thead = <HTMLTableSectionElement> newtable.createTHead();
+    var tbody = <HTMLTableSectionElement> newtable.createTBody();
     var headrow: HTMLTableRowElement = <HTMLTableRowElement> thead.insertRow();
     var properties = Object.getOwnPropertyNames(new AutofilerRule(null));
 
     newtable.className = 'table-hover table-responsive';
     newtable.id = "nicetable";
-
+    
     for (var propRef in properties) {
-        var propertyName = properties[propRef];
-        var hcell: HTMLTableHeaderCellElement = <HTMLTableHeaderCellElement> headrow.insertCell(propRef);
-        hcell.innerHTML = propertyName;
+        console.log(propRef);
+
+        if (checksBoolArray[propRef]) {
+            var propertyName = properties[propRef];
+            var hcell: HTMLTableHeaderCellElement = <HTMLTableHeaderCellElement> headrow.insertCell();
+            hcell.innerHTML = propertyName;
+        }
     }
 
     for (var ruleRef in tmpList) {
         var rule: AutofilerRule = tmpList[ruleRef];
         var row : HTMLTableRowElement = rule.CreateTableRow();
+
+        console.log(checksBoolArray);
+        for (var checkBool in checksBoolArray) {
+            if (!checksBoolArray[checkBool]) {
+                console.log(checkBool);
+                var cell: HTMLTableCellElement = <HTMLTableCellElement>row.childNodes[checkBool];
+                console.log(cell);
+                cell.hidden = true;
+            }
+        }
 
         tbody.appendChild(row);
 

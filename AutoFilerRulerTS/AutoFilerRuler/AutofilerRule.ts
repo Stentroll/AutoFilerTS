@@ -97,10 +97,10 @@
 
         //For each variable add a new cell
         for (var propRef in memVars) {
-            var property = memVars[propRef];
-            var cell = row.insertCell(propRef);
+            var property = memVars[+propRef];
+            var cell = row.insertCell(+propRef);
 
-            //If value was not set leave blank, temp workaround
+            //If value was not set leave blank, temp workaround?
             if (this[property] == -1) {
                 cell.innerHTML = "";
             }
@@ -118,6 +118,4 @@
         }
         return row;
     }
-
-
 }
