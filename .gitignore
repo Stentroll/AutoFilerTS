@@ -235,7 +235,3 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 *.map
-*.map
-AutoFilerRulerTS/AutoFilerRuler/app.js.map
-AutoFilerRulerTS/AutoFilerRuler/app.js.map
-*.map
