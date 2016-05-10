@@ -6,7 +6,7 @@
     <title>AF Config Parser</title>
 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="app.css" type="text/css" />
@@ -23,36 +23,66 @@
         </div>
 
         <p>
-            <button id="btnParse">Parse config</button>
+            <button class="btn btn-secondary"  id="btnParse">Parse config</button>
         </p>
 
-        <div id="filters">
-            <h2>Filters</h2>
-            <div>
-                <label class="filterlabel">Basefolder ID: </label>
-                <input class="filterInput" type="text" disabled="disabled" id="txtFilterId"/>
+
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                            Filter Controls
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div id="filters" class="panel-collapse collapse in">
+                            <div>
+                                <label class="filterlabel">Basefolder ID: </label>
+                                <input class="filterInput" type="text" id="txtFilterId" />
+                            </div>
+                            <div>
+                                <label class="filterlabel">Rule name: </label>
+                                <input class="filterInput" type="text" id="txtFilterName" />
+                            </div>
+                            <div>
+                                <label class="filterlabel">Hide Disabled Rules: </label>
+                                <input class="filterInput" type="checkbox" id="cbHideDisabled" />
+                            </div>
+                            <button class="btn btn-secondary" id="ButtonClearFilters">Clear filters</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-                <label class="filterlabel">Rule name: </label>
-                <input class="filterInput" type="text" disabled="disabled" id="txtFilterName"/>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                            Show/Hide Table Columns
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div>
+                            <button class="btn btn-secondary" id="btnCheckShowAll">Show All</button>
+                            <button class="btn btn-secondary" id="btnCheckHideAll">Hide All</button>
+                        </div>
+                        <div id="fieldSelectors" class="panel-collapse collapse in">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>
-                <label class="filterlabel">Hide Disabled Rules: </label>
-                <input class="filterInput" type="checkbox" disabled="disabled" id="cbHideDisabled"/>
-            </div>
-            <button id="ButtonClearFilters">Clear filters</button>
-        </div>
-        
-        <div id="fieldSelectors">
-            <h2>Display columns:</h2>
         </div>
 
-    <h2 id="h2RuleCount">Autofiler Rules</h2>
-      <!--<p>The .table-hover class enables a hover state on table rows:</p>-->
-    <div id="tablediv">            
-      <table id="nicetable" class="table table-hover"></table>
-    </div>
-  </body>
+            <h2 id="h2RuleCount">Autofiler Rules</h2>
+            <!--<p>The .table-hover class enables a hover state on table rows:</p>-->
+            <div id="tablediv">
+                <table id="nicetable" class="table table-hover"></table>
+            </div>
+</body>
 
 
 </html>

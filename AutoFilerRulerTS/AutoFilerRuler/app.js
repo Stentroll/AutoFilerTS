@@ -6,41 +6,48 @@ var txtFilterId;
 var txtFilterName;
 var cbHideDisabled;
 window.onload = function () {
-    var el = document.getElementById('content');
-    var ruletextarea = document.getElementById('ruletextarea');
-    var btnParse = document.getElementById('btnParse');
+    //Assign elements
     txtFilterId = document.getElementById('txtFilterId');
     txtFilterName = document.getElementById('txtFilterName');
     cbHideDisabled = document.getElementById('cbHideDisabled');
-    PopulateTextArea();
+    var btnClearFilters = document.getElementById('ButtonClearFilters');
+    var btnCheckShowAll = document.getElementById("btnCheckShowAll");
+    var btnCheckHideAll = document.getElementById("btnCheckHideAll");
+    var btnParse = document.getElementById('btnParse');
+    //Procedurally create the show/hide column checkboxes
     CreateFilterChecks();
-    var ButtonClearFilters = document.getElementById('ButtonClearFilters');
-    ButtonClearFilters.onclick = function (ev) {
-        txtFilterId.value = "";
-        txtFilterName.value = "";
-        cbHideDisabled.checked = false;
-        BuildTable();
-    };
-    btnParse.onclick = function (ev) {
-        ruleList = [];
-        ParseAutofilerCfg();
-        console.log("Rules found:" + ruleList.length);
-        if (ruleList.length > 0) {
-            txtFilterId.disabled = false;
-            txtFilterName.disabled = false;
-            cbHideDisabled.disabled = false;
-        }
-        BuildTable();
-        document.getElementById("nicetable").focus();
-    };
+    //Function to fill the input to make debugging faster
+    PopulateTextArea();
+    //Assign functions to onclick events
+    btnClearFilters.onclick = function () { return ClearFilters(); };
+    btnCheckShowAll.onclick = function () { return ShowHideAllColumns(true); };
+    btnCheckHideAll.onclick = function () { return ShowHideAllColumns(false); };
+    btnParse.onclick = function () { return ParseConfig(); };
     txtFilterId.onkeyup = function () { BuildTable(); };
     txtFilterName.onkeyup = function () { BuildTable(); };
     cbHideDisabled.onchange = function () { BuildTable(); };
 };
-document.getElementById('ruletextarea').onchange = function (ev) {
-};
-function CheckedChange(ev) {
+function ShowHideAllColumns(show) {
+    var checkboxElementArray = document.getElementsByClassName("fieldcheck");
+    console.log(checkboxElementArray);
+    for (var n = 0; n < checkboxElementArray.length; n++) {
+        var checkboxtmp = checkboxElementArray[n];
+        checkboxtmp.checked = show;
+    }
     BuildTable();
+}
+function ClearFilters() {
+    txtFilterId.value = "";
+    txtFilterName.value = "";
+    cbHideDisabled.checked = false;
+    BuildTable();
+}
+function ParseConfig() {
+    ruleList = [];
+    ParseAutofilerCfg();
+    console.log("Rules found:" + ruleList.length);
+    BuildTable();
+    //window.location.hash = "#accordion";
 }
 function FilterBfId(rule) {
     var tmp = rule.basefolders;
@@ -91,65 +98,66 @@ function CreateFilterChecks() {
         newCheck.type = "checkbox";
         newCheck.checked = true;
         newCheck.id = fieldRef;
-        var tag = document.createElement("h5");
+        var tag = document.createElement("label");
+        tag.classList.add("filterlabel");
         tag.innerHTML = fieldNames[fieldRef];
         newDiv.appendChild(newCheck);
         newDiv.appendChild(tag);
         document.getElementById("fieldSelectors").appendChild(newDiv);
-        newCheck.onchange = function (ev) { return CheckedChange(ev); };
+        newCheck.onchange = function (ev) { return BuildTable(); };
     }
     var fieldchecks = document.getElementsByClassName("fieldcheck");
 }
-function BuildTable() {
-    var tmpList;
-    tmpList = ruleList;
-    var checksBoolArray = [];
-    //Handle filtering functions
-    if (txtFilterId.value.length != 0) {
-        tmpList = tmpList.filter(FilterBfId, Number(txtFilterId.value));
+if (ruleList.length == 0) {
+    return;
+}
+var tmpList;
+tmpList = ruleList;
+var checksBoolArray = [];
+//Handle filtering functions
+if (txtFilterId.value.length != 0) {
+    tmpList = tmpList.filter(FilterBfId, Number(txtFilterId.value));
+}
+if (txtFilterName.value.length != 0) {
+    tmpList = tmpList.filter(FilterRuleName, txtFilterName.value);
+}
+if (cbHideDisabled.checked) {
+    tmpList = tmpList.filter(FilterRuleEnabled, true);
+}
+var checkboxElementArray = document.getElementsByClassName("fieldcheck");
+for (var n = 0; n < checkboxElementArray.length; n++) {
+    var checkboxtmp = checkboxElementArray[n];
+    checksBoolArray.push(checkboxtmp.checked);
+}
+document.getElementById('h2RuleCount').innerHTML = "Autofiler Rules: " + tmpList.length;
+var tbl = document.getElementById("nicetable");
+var newtable = document.createElement("table");
+var thead = newtable.createTHead();
+var tbody = newtable.createTBody();
+var headrow = thead.insertRow();
+var properties = Object.getOwnPropertyNames(new AutofilerRule(null));
+newtable.className = 'table-hover table-responsive';
+newtable.id = "nicetable";
+for (var propRef in properties) {
+    if (checksBoolArray[propRef]) {
+        var propertyName = properties[propRef];
+        var hcell = headrow.insertCell();
+        hcell.innerHTML = propertyName;
     }
-    if (txtFilterName.value.length != 0) {
-        tmpList = tmpList.filter(FilterRuleName, txtFilterName.value);
-    }
-    if (cbHideDisabled.checked) {
-        tmpList = tmpList.filter(FilterRuleEnabled, true);
-    }
-    var checkboxElementArray = document.getElementsByClassName("fieldcheck");
-    for (var n = 0; n < checkboxElementArray.length; n++) {
-        var checkboxtmp = checkboxElementArray[n];
-        checksBoolArray.push(checkboxtmp.checked);
-    }
-    document.getElementById('h2RuleCount').innerHTML = "Autofiler Rules: " + tmpList.length;
-    var tbl = document.getElementById("nicetable");
-    var newtable = document.createElement("table");
-    var thead = newtable.createTHead();
-    var tbody = newtable.createTBody();
-    var headrow = thead.insertRow();
-    var properties = Object.getOwnPropertyNames(new AutofilerRule(null));
-    newtable.className = 'table-hover table-responsive';
-    newtable.id = "nicetable";
-    for (var propRef in properties) {
-        console.log(propRef);
-        if (checksBoolArray[propRef]) {
-            var propertyName = properties[propRef];
-            var hcell = headrow.insertCell();
-            hcell.innerHTML = propertyName;
+}
+for (var ruleRef in tmpList) {
+    var rule = tmpList[ruleRef];
+    var row = rule.CreateTableRow();
+    for (var checkBool in checksBoolArray) {
+        if (!checksBoolArray[checkBool]) {
+            var cell = row.childNodes[checkBool];
+            cell.hidden = true;
         }
     }
-    for (var ruleRef in tmpList) {
-        var rule = tmpList[ruleRef];
-        var row = rule.CreateTableRow();
-        for (var checkBool in checksBoolArray) {
-            if (!checksBoolArray[checkBool]) {
-                var cell = row.childNodes[checkBool];
-                cell.hidden = true;
-            }
-        }
-        tbody.appendChild(row);
-        document.getElementById("tablediv").removeChild(tbl);
-        document.getElementById("tablediv").appendChild(newtable);
-        tbl = newtable;
-    }
+    tbody.appendChild(row);
+    document.getElementById("tablediv").removeChild(tbl);
+    document.getElementById("tablediv").appendChild(newtable);
+    tbl = newtable;
 }
 function ParseAutofilerCfg() {
     var textBox = document.getElementById('ruletextarea');

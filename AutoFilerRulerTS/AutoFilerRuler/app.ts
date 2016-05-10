@@ -9,56 +9,59 @@ var txtFilterId: HTMLInputElement;
 var txtFilterName: HTMLInputElement;
 var cbHideDisabled: HTMLInputElement;
 
-window.onload = () => {
-    var el = document.getElementById('content');
-    var ruletextarea = document.getElementById('ruletextarea');
-    var btnParse = document.getElementById('btnParse');
-
+window.onload = () => {    
+   //Assign elements
     txtFilterId = <HTMLInputElement> document.getElementById('txtFilterId');
     txtFilterName = <HTMLInputElement> document.getElementById('txtFilterName');
     cbHideDisabled = <HTMLInputElement> document.getElementById('cbHideDisabled');
+    var btnClearFilters: HTMLButtonElement = <HTMLButtonElement>document.getElementById('ButtonClearFilters');
+    var btnCheckShowAll: HTMLInputElement = <HTMLInputElement>document.getElementById("btnCheckShowAll");
+    var btnCheckHideAll: HTMLInputElement = <HTMLInputElement>document.getElementById("btnCheckHideAll");
+    var btnParse: HTMLButtonElement = <HTMLButtonElement>document.getElementById('btnParse');
 
-
-    PopulateTextArea();
-
+    //Procedurally create the show/hide column checkboxes
     CreateFilterChecks();
 
-    var ButtonClearFilters = document.getElementById('ButtonClearFilters');
-    ButtonClearFilters.onclick = (ev: Event) => {
-        txtFilterId.value = "";
-        txtFilterName.value = "";
-        cbHideDisabled.checked = false;
-        BuildTable();
+    //Function to fill the input to make debugging faster
+    PopulateTextArea();
 
-    }
-
-    btnParse.onclick = (ev: Event) => {
-        ruleList = [];
-        ParseAutofilerCfg();
-
-        console.log("Rules found:" + ruleList.length);
-
-        if (ruleList.length > 0) {
-            txtFilterId.disabled = false;
-            txtFilterName.disabled = false;
-            cbHideDisabled.disabled = false;
-        }
-
-        BuildTable();
-
-        document.getElementById("nicetable").focus();
-    }
+    //Assign functions to onclick events
+    btnClearFilters.onclick = () => ClearFilters();
+    btnCheckShowAll.onclick = () => ShowHideAllColumns(true);
+    btnCheckHideAll.onclick = () => ShowHideAllColumns(false);
+    btnParse.onclick = () => ParseConfig();
 
     txtFilterId.onkeyup = () => { BuildTable(); };
     txtFilterName.onkeyup = () => { BuildTable(); };
     cbHideDisabled.onchange = () => { BuildTable(); };
 };
 
-document.getElementById('ruletextarea').onchange = (ev : Event) => {
-};
+function ShowHideAllColumns(show: boolean): void {
+    var checkboxElementArray = document.getElementsByClassName("fieldcheck");
 
-function CheckedChange(ev) {
+    console.log(checkboxElementArray);
+    for (var n = 0; n < checkboxElementArray.length; n++) {
+        var checkboxtmp: HTMLInputElement = <HTMLInputElement>checkboxElementArray[n];
+        checkboxtmp.checked = show;
+    }
     BuildTable();
+}
+
+function ClearFilters(): void {
+    txtFilterId.value = "";
+    txtFilterName.value = "";
+    cbHideDisabled.checked = false;
+    BuildTable();
+}
+
+function ParseConfig() {
+    ruleList = [];
+    ParseAutofilerCfg();
+
+    console.log("Rules found:" + ruleList.length);
+
+    BuildTable();
+        //window.location.hash = "#accordion";
 }
 
 function FilterBfId(rule) {
@@ -116,7 +119,8 @@ function CreateFilterChecks() {
         newCheck.checked = true;
         newCheck.id = fieldRef;
 
-        var tag: HTMLElement = document.createElement("h5");
+        var tag: HTMLElement = document.createElement("label");
+        tag.classList.add("filterlabel");
         tag.innerHTML = fieldNames[fieldRef];
 
         newDiv.appendChild(newCheck);
@@ -124,13 +128,16 @@ function CreateFilterChecks() {
 
         document.getElementById("fieldSelectors").appendChild(newDiv);
 
-        newCheck.onchange = (ev: Event) => CheckedChange(ev);
+        newCheck.onchange = (ev: Event) => BuildTable();
     } 
 
     var fieldchecks: NodeList = document.getElementsByClassName("fieldcheck");
 }
 
-function BuildTable() {
+    if (ruleList.length == 0) {
+        return;
+    }
+
     var tmpList: AutofilerRule[];
     tmpList = ruleList;
     var checksBoolArray: boolean[] = [];
@@ -150,13 +157,10 @@ function BuildTable() {
 
     var checkboxElementArray = document.getElementsByClassName("fieldcheck");
 
-
     for (var n = 0; n < checkboxElementArray.length; n++) {
         var checkboxtmp: HTMLInputElement = <HTMLInputElement>checkboxElementArray[n];
         checksBoolArray.push(checkboxtmp.checked);
     }
-
-
 
     document.getElementById('h2RuleCount').innerHTML = "Autofiler Rules: " + tmpList.length;
 
@@ -171,8 +175,6 @@ function BuildTable() {
     newtable.id = "nicetable";
     
     for (var propRef in properties) {
-        console.log(propRef);
-
         if (checksBoolArray[propRef]) {
             var propertyName = properties[propRef];
             var hcell: HTMLTableHeaderCellElement = <HTMLTableHeaderCellElement> headrow.insertCell();

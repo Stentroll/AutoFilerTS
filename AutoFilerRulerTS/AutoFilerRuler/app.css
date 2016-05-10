@@ -1,89 +1,111 @@
-﻿body {
+﻿/*Type styles*/
+body {
     font-family: 'Segoe UI', sans-serif;
     background-color: #222;
     color: #ddd;
     margin: 20px;
 }
 
-span {
-    font-style: italic;
-    vertical-align: middle;
-}
-
-table {
-    font-size: 12px;
-}
-
-#tablediv {
-    overflow-y: scroll; 
-    height: 800px;
-}
-
-thead {
-    font-size: 16px;
-}
-
-th, td {
-    padding-left: 15px;
-    padding-right: 15px;
-    text-align: left;
-    border:thin;
-    border-color:red;
-    white-space: nowrap;
-}
-
-#ruletextarea {
-    color: #444;
-    font-size: 12px;
+h1, h2 {
+    color: #fff;
 }
 
 input {
-    color: #444;
+    color: #000;
     font-size: 12px;
     width: 40px;
 }
 
+/*Class styles*/
+.btn {
+    color: black;
+}
+
 .filterlabel {
     width: 160px;
+    color: #fff;
+    font-weight: 400;
+    color: #ddddee;
+    font-style: normal;
 }
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-  background-color: #333;
+  background-color: #334;
+  /*font-weight: bold;*/
 }
 
-tr:hover {
-    color: #FFF;
-    background-color: #444;
+thead tr:hover {}
+
+.panel {
+    width: 50%;
 }
 
-button {
-    color: #000;
+.panel-collapse {
+    background-color: #445;
+}
+
+.panel > .panel-heading {
+    background-color: #ddddee;
+}
+
+/*Id Styles*/
+#tablediv {
+    padding-bottom: 100px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+#tablediv tbody td {
+    font-size: 12px;
+}
+
+#tablediv thead td {
+    font-size: 16px;
+    padding-bottom: 10px;
+}
+
+#tablediv th, td {
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+#ruletextarea {
+    color: #222;
+    font-size: 12px;
+    width: 50%;
+    height: 150px;
+    background-color: #efefef;
 }
 
 #filters {
     float: left;
-    width: 20%;
+    width: 100%;
 }
 
-#h2RuleCount {
-    clear: both;
-}
-
-label {
-    color: #ddd;
-    font-style: normal;
+#filters input {
+    color: #000;
 }
 
 #fieldSelectors {
     float: left;
-    width: 40%;
     clear: none;
-    height: 200px;
+    height: auto;
 }
 
+#fieldSelectors div {
+    float: left;
+    width: 25%;
+    clear: none;
+    padding: 0px;
+}
 
-#fieldSelectors label span {
-    vertical-align: middle;
+#fieldSelectors div:hover {
+    float: left;
+    clear: none;
+    background-color: #334;
 }
 
 #fieldSelectors input {
@@ -93,22 +115,5 @@ label {
 }
 
 #fieldSelectors .label-default {
-    background-color: #333;
-}
-
-#fieldSelectors div {
-    float: left;
-    width: 25%;
-    clear: none;
-    padding: 4px;
-}
-
-#fieldSelectors div:hover {
-    float: left;
-    clear: none;
-    background-color: #333;
-}
-
-#fieldSelectors h5 {
-    margin: 0px;
+    background-color: #445;
 }
