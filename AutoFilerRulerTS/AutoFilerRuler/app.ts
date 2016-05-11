@@ -1,4 +1,4 @@
-﻿///<reference path='AutofilerRule.ts'/>
+﻿/// <reference path="TSclasses/autofilerrule.ts" />
 ///<reference path='jquery.d.ts'/>
 
 
@@ -23,7 +23,7 @@ window.onload = () => {
     CreateFilterChecks();
 
     //Function to fill the input to make debugging faster
-    PopulateTextArea();
+    //PopulateTextArea();
 
     //Assign functions to onclick events
     btnClearFilters.onclick = () => ClearFilters();
@@ -60,6 +60,8 @@ function ParseConfig() {
 
     console.log("Rules found:" + ruleList.length);
 
+    console.log(ruleList);
+
     BuildTable();
         //window.location.hash = "#accordion";
 }
@@ -94,6 +96,7 @@ function CreateFilterChecks() {
     fieldNames.push("name");
     fieldNames.push("purgeTimeoutSec");
     fieldNames.push("purgeTimeoutDays");
+    fieldNames.push("basefolderCount");
     fieldNames.push("basefolders");
     fieldNames.push("archival");
     fieldNames.push("upperLimit");
@@ -133,6 +136,8 @@ function CreateFilterChecks() {
 
     var fieldchecks: NodeList = document.getElementsByClassName("fieldcheck");
 }
+
+function BuildTable() : void {
 
     if (ruleList.length == 0) {
         return;
@@ -202,8 +207,8 @@ function CreateFilterChecks() {
 }
 
 function ParseAutofilerCfg() {
-    var textBox: HTMLTextAreaElement = <HTMLTextAreaElement> document.getElementById('ruletextarea');
-    var cfgText = textBox.textContent;
+    var textBox: HTMLTextAreaElement = <HTMLTextAreaElement>document.getElementById("ruletextarea");
+    var cfgText = textBox.value;
     var lines = cfgText.split("\n");
     var ruleNames: string[] = [];
 

@@ -1,0 +1,175 @@
+﻿/*Type styles*/
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #222;
+    color: #ddd;
+    margin: 20px;
+    overflow-y: scroll;
+}
+
+h1, h2 {
+    color: #fff;
+}
+
+input {
+    color: #000;
+    font-size: 12px;
+    width: 40px;
+}
+
+/*Class styles*/
+.btn {
+    color: black;
+}
+
+.filterlabel {
+    /*width: 160px;*/
+    color: #fff;
+    font-weight: 400;
+    color: #ddddee;
+    font-style: normal;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #334;
+  /*font-weight: bold;*/
+}
+
+thead tr:hover {}
+
+.panel {
+    width: auto;
+}
+
+.panel-collapse {
+    background-color: #333334;
+}
+
+.panel > .panel-heading {
+    background-color: #dddddd;
+}
+
+/*Id Styles*/
+#tablediv {
+    padding-bottom: 100px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+    border: medium;
+}
+
+#tablediv tbody td {
+    font-size: 12px;
+}
+
+#tablediv thead td {
+    font-size: 16px;
+    padding-bottom: 10px;
+}
+
+#tablediv th, td {
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+
+#filters {
+    float: left;
+    width: 100%;
+}
+
+#filters div {
+    float: left;
+    width: 25%;
+    padding: 10px;
+}
+
+#filters label {
+    float: left;
+    width: auto;
+    margin-right: 10px;
+    vertical-align: central;
+}
+
+#filters input {
+    height: 24px;
+    width: 40px;
+    color: #000;
+}
+
+#filters #cbHideDisabled {
+    height: 16px;
+}
+
+#fieldSelectors {
+    float: left;
+    clear: none;
+    height: 100%;
+}
+
+#fieldSelectors div {
+    float: left;
+    width: 25%;
+    clear: none;
+    margin-right: 5%;
+}
+
+#fieldSelectors div:hover {
+    float: left;
+    clear: none;
+    background-color: #555;
+}
+
+#fieldSelectors input {
+    float: left;
+    height: 16px;
+    width: 16px;
+    margin-right: 4px;
+    clear: none;
+}
+
+#fieldSelectors .label-default {
+    background-color: #445;
+    width: 160px;
+}
+
+#textAreaDiv {
+    width: 50%;
+    clear: none;
+    height: 300px;
+    float: left;
+}
+
+#textAreaDiv div {
+    width: 50%;
+    float: left;
+    clear: none;
+    padding: 10px;
+    padding-left: 0px;
+    padding-top: 0px;
+}
+
+#textAreaDiv textarea {
+    margin-right:16px;
+    color: #222;
+    font-size: 12px;
+    height: 200px;
+    background-color: #efefef;
+    margin-bottom: 16px;
+    resize: none;
+}
+
+#accordion {
+    padding-left: 16px;
+    float: left;
+    width: 50%;
+    clear: right;
+}
+
+#inputContainer {
+    width: 100%;
+    clear: both;
+    height: 300px;
+}

@@ -18,8 +18,9 @@
     <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="app.css" />
-    <Content Include="AutofilerRule.ts" />
+    <Content Include="Styling\app.css" />
+    <Content Include="TSclasses\autofilerrule.js" />
+    <Content Include="TSclasses\AutofilerRule.ts" />
     <Content Include="index.html" />
     <Content Include="Scripts\typings\jquery\jquery.d.ts" />
     <Content Include="web.config" />
@@ -30,6 +31,7 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Potato.pubxml" />
+    <Content Include="TSclasses\autofilerrule.js.map" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
