@@ -23,15 +23,18 @@
     <Content Include="TSclasses\AutofilerRule.ts" />
     <Content Include="index.html" />
     <Content Include="Scripts\typings\jquery\jquery.d.ts" />
+    <Content Include="TSclasses\Basefolder.js" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="TSclasses\Basefolder.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Potato.pubxml" />
     <Content Include="TSclasses\autofilerrule.js.map" />
+    <Content Include="TSclasses\Basefolder.js.map" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -71,6 +74,16 @@
     <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
     <TypeScriptSourceMap>true</TypeScriptSourceMap>
     <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptOutFile>
+    </TypeScriptOutFile>
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <TypeScriptTarget>ES5</TypeScriptTarget>

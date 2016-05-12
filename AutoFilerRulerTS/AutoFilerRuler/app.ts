@@ -1,4 +1,5 @@
-﻿/// <reference path="TSclasses/autofilerrule.ts" />
+﻿/// <reference path="tsclasses/basefolder.ts" />
+/// <reference path="TSclasses/autofilerrule.ts" />
 ///<reference path='jquery.d.ts'/>
 
 
@@ -17,7 +18,8 @@ window.onload = () => {
     var btnClearFilters: HTMLButtonElement = <HTMLButtonElement>document.getElementById('ButtonClearFilters');
     var btnCheckShowAll: HTMLInputElement = <HTMLInputElement>document.getElementById("btnCheckShowAll");
     var btnCheckHideAll: HTMLInputElement = <HTMLInputElement>document.getElementById("btnCheckHideAll");
-    var btnParse: HTMLButtonElement = <HTMLButtonElement>document.getElementById('btnParse');
+    var btnParseAF: HTMLButtonElement = <HTMLButtonElement>document.getElementById('btnParseAF');
+    var btnParseBF: HTMLButtonElement = <HTMLButtonElement>document.getElementById('btnParseBF');
 
     //Procedurally create the show/hide column checkboxes
     CreateFilterChecks();
@@ -29,7 +31,8 @@ window.onload = () => {
     btnClearFilters.onclick = () => ClearFilters();
     btnCheckShowAll.onclick = () => ShowHideAllColumns(true);
     btnCheckHideAll.onclick = () => ShowHideAllColumns(false);
-    btnParse.onclick = () => ParseConfig();
+    btnParseAF.onclick = () => ParseConfig();
+    btnParseBF.onclick = () => ParseBasefolderDump();
 
     txtFilterId.onkeyup = () => { BuildTable(); };
     txtFilterName.onkeyup = () => { BuildTable(); };
@@ -265,6 +268,46 @@ function ParseAutofilerCfg() {
             }
         }
     }
+}
+
+function ParseBasefolderDump() {
+    var textBox: HTMLTextAreaElement = <HTMLTextAreaElement>document.getElementById("bftextarea");
+    var bfText = textBox.value;
+    var lines = bfText.split("\n");
+    var ruleNames: string[] = [];
+    var field: string;
+    var value: string;
+
+    var bf: Basefolder;
+
+    for (var index in lines) {
+        var line = lines[index];
+        line = line.trim();
+
+        var bfList: Basefolder[];
+        bfList = [];
+
+        console.log(line);
+
+        //If it is a commented line skip to next
+        if (line == "") { continue; }
+        if (line == null) { continue; }
+        if (line[0] == '#') { continue; }
+        if (bf === null) { continue; }
+
+        if (line.indexOf("base_folder") != -1) {
+            console.log(bf);
+            bfList.push(bf);
+            bf = new Basefolder();
+            continue;
+        }
+
+        field = line.split(":", 1)[0];
+        value = line.replace(field + ":", "");
+
+        bf.Set(field, value);
+    }
+    console.log(bfList);
 }
 
 function PopulateTextArea(): void {
