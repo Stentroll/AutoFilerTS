@@ -5,8 +5,6 @@
     location: string;
     id_string: string;
 
-
-
     Set(field: string, value: string): void {
         //console.log("Setting: " + field + " - " + value);
 

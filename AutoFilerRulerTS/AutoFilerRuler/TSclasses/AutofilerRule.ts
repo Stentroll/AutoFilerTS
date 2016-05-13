@@ -1,4 +1,5 @@
 ﻿class AutofilerRule {
+    id: number = 0;
     name: string = "";
     purgeTimeoutSec: number = -1;
     purgeTimeoutDays: number = -1;
@@ -19,8 +20,8 @@
     minimum: string = "";
 
     //Constructor
-    constructor(id : string) {
-        this.name = id;
+    constructor(id : number) {
+        this.id = id;
     }
 
     set(field: string, value: string) : void {
@@ -93,7 +94,7 @@
     public CreateTableRow(): HTMLTableRowElement {
         //Get member variables of this class
         var memVars = Object.getOwnPropertyNames(this);
-        console.log(memVars);
+        //console.log(memVars);
         //Create a blank table row
         var row: HTMLTableRowElement = document.createElement('tr');
 

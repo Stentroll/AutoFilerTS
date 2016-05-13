@@ -1,0 +1,913 @@
+﻿base_folder:
+	id: 1
+	name: System default
+	type_id: 0
+	location: file://SUTPIS01/folders$/default
+	id_string: default
+
+base_folder:
+	id: 2
+	name: transition
+	location: file://SUTPIS01/folders$/transition
+	id_string: transition
+
+base_folder:
+	id: 3
+	name: Archive
+	type_id: 1
+	location: mojb://NONE
+	id_string: archive
+
+base_folder:
+	id: 4
+	name: sut_ct1
+	location: file://SUTPIS01/folders$/sut_ct1
+	id_string: sut_ct1
+
+base_folder:
+	id: 5
+	name: sut_ct2
+	location: file://SUTPIS01/folders$/sut_ct2
+	id_string: sut_ct2
+
+base_folder:
+	id: 6
+	name: sut_ctws1
+	location: file://SUTPIS01/folders$/sut_ctws1
+	id_string: sut_ctws1
+
+base_folder:
+	id: 7
+	name: sut_ct3
+	location: file://SUTPIS01/folders$/sut_ct3
+	id_string: sut_ct3
+
+base_folder:
+	id: 8
+	name: sut_ct4
+	location: file://SUTPIS01/folders$/sut_ct4
+	id_string: sut_ct4
+
+base_folder:
+	id: 9
+	name: sut_ot1
+	location: file://SUTPIS01/folders$/sut_ot1
+	id_string: sut_ot1
+
+base_folder:
+	id: 10
+	name: sut_mr1
+	location: file://SUTPIS01/folders$/sut_mr1
+	id_string: sut_mr1
+
+base_folder:
+	id: 11
+	name: sut_mr2
+	location: file://SUTPIS01/folders$/sut_mr2
+	id_string: sut_mr2
+
+base_folder:
+	id: 13
+	name: sut_mr3
+	location: file://SUTPIS01/folders$/sut_mr3
+	id_string: sut_mr3
+
+base_folder:
+	id: 14
+	name: sut_mrsw1
+	location: file://SUTPIS01/folders$/sut_mrws1
+	id_string: sut_mrws1
+
+base_folder:
+	id: 15
+	name: sut_mrsw2
+	location: file://SUTPIS01/folders$/sut_mrws2
+	id_string: sut_mrws2
+
+base_folder:
+	id: 16
+	name: sut_mrsw3
+	location: file://SUTPIS01/folders$/sut_mrws3
+	id_string: sut_mrws3
+
+base_folder:
+	id: 17
+	name: sut_mrsw4
+	location: file://SUTPIS01/folders$/sut_mrws4
+	id_string: sut_mrws4
+
+base_folder:
+	id: 18
+	name: sut_mrsw5
+	location: file://SUTPIS01/folders$/sut_mrws5
+	id_string: sut_mrws5
+
+base_folder:
+	id: 19
+	name: sut_mg1
+	location: file://SUTPIS01/folders$/sut_mg1
+	id_string: sut_mg1
+
+base_folder:
+	id: 20
+	name: sut_mg2
+	location: file://SUTPIS01/folders$/sut_mg2
+	id_string: sut_mg2
+
+base_folder:
+	id: 21
+	name: sut_mg3
+	location: file://SUTPIS01/folders$/sut_mg3
+	id_string: sut_mg3
+
+base_folder:
+	id: 22
+	name: sut_mgws1
+	location: file://SUTPIS01/folders$/sut_mgws1
+	id_string: sut_mgws1
+
+base_folder:
+	id: 23
+	name: sut_mgws2
+	location: file://SUTPIS01/folders$/sut_mgws2
+	id_string: sut_mgws2
+
+base_folder:
+	id: 24
+	name: sut_mg4
+	location: file://SUTPIS01/folders$/sut_mg4
+	id_string: sut_mg4
+
+base_folder:
+	id: 25
+	name: sut_mgws3
+	location: file://SUTPIS01/folders$/sut_mgws3
+	id_string: sut_mgws3
+
+base_folder:
+	id: 26
+	name: sut_us1
+	location: file://SUTPIS01/folders$/sut_us1
+	id_string: sut_us1
+
+base_folder:
+	id: 27
+	name: sut_us2
+	location: file://SUTPIS01/folders$/sut_us2
+	id_string: sut_us2
+
+base_folder:
+	id: 28
+	name: sut_us3
+	location: file://SUTPIS01/folders$/sut_us3
+	id_string: sut_us3
+
+base_folder:
+	id: 29
+	name: sut_us4
+	location: file://SUTPIS01/folders$/sut_us4
+	id_string: sut_us4
+
+base_folder:
+	id: 30
+	name: sut_rf1
+	location: file://SUTPIS01/folders$/sut_rf1
+	id_string: sut_rf1
+
+base_folder:
+	id: 31
+	name: sut_dr1
+	location: file://SUTPIS01/folders$/sut_dr1
+	id_string: sut_dr1
+
+base_folder:
+	id: 32
+	name: sut_cr1
+	location: file://SUTPIS01/folders$/sut_cr1
+	id_string: sut_cr1
+
+base_folder:
+	id: 33
+	name: sut_cr2
+	location: file://SUTPIS01/folders$/sut_cr2
+	id_string: sut_cr2
+
+base_folder:
+	id: 34
+	name: sut_cr3
+	location: file://SUTPIS01/folders$/sut_cr3
+	id_string: sut_cr3
+
+base_folder:
+	id: 35
+	name: sut_cr4
+	location: file://SUTPIS01/folders$/sut_cr4
+	id_string: sut_cr4
+
+base_folder:
+	id: 36
+	name: sut_nm1
+	location: file://SUTPIS01/folders$/sut_nm1
+	id_string: sut_nm1
+
+base_folder:
+	id: 37
+	name: sut_nm2
+	location: file://SUTPIS01/folders$/sut_nm2
+	id_string: sut_nm2
+
+base_folder:
+	id: 38
+	name: sut_nm3
+	location: file://SUTPIS01/folders$/sut_nm3
+	id_string: sut_nm3
+
+base_folder:
+	id: 39
+	name: sut_nm4
+	location: file://SUTPIS01/folders$/sut_nm4
+	id_string: sut_nm4
+
+base_folder:
+	id: 40
+	name: sut_nmws1
+	location: file://SUTPIS01/folders$/sut_nmws1
+	id_string: sut_nmws1
+
+base_folder:
+	id: 41
+	name: sut_nmws2
+	location: file://SUTPIS01/folders$/sut_nmws2
+	id_string: sut_nmws2
+
+base_folder:
+	id: 42
+	name: sut_nmws3
+	location: file://SUTPIS01/folders$/sut_nmws3
+	id_string: sut_nmws3
+
+base_folder:
+	id: 43
+	name: sut_nmws4
+	location: file://SUTPIS01/folders$/sut_nmws4
+	id_string: sut_nmws4
+
+base_folder:
+	id: 44
+	name: sut_pet1
+	location: file://SUTPIS01/folders$/sut_pet1
+	id_string: sut_pet1
+
+base_folder:
+	id: 45
+	name: sut_pet2
+	location: file://SUTPIS01/folders$/sut_pet2
+	id_string: sut_pet2
+
+base_folder:
+	id: 46
+	name: sut_nm5
+	location: file://SUTPIS01/folders$/sut_nm5
+	id_string: sut_nm5
+
+base_folder:
+	id: 47
+	name: sut_nm6
+	location: file://SUTPIS01/folders$/sut_nm6
+	id_string: sut_nm6
+
+base_folder:
+	id: 48
+	name: sut_nm7
+	location: file://SUTPIS01/folders$/sut_nm7
+	id_string: sut_nm7
+
+base_folder:
+	id: 49
+	name: sut_ctws2
+	location: file://SUTPIS01/folders$/sut_ctws2
+	id_string: sut_ctws2
+
+base_folder:
+	id: 50
+	name: sut_ot2
+	location: file://SUTPIS01/folders$/sut_ot2
+	id_string: sut_ot2
+
+base_folder:
+	id: 51
+	name: sut_ot3
+	location: file://SUTPIS01/folders$/sut_ot3
+	id_string: sut_ot3
+
+base_folder:
+	id: 52
+	name: sut_ot4
+	location: file://SUTPIS01/folders$/sut_ot4
+	id_string: sut_ot4
+
+base_folder:
+	id: 53
+	name: che_ct1
+	location: file://CHEPIS01/folders$/che_ct1
+	id_string: che_ct1
+
+base_folder:
+	id: 54
+	name: che_ct2
+	location: file://CHEPIS01/folders$/che_ct2
+	id_string: che_ct2
+
+base_folder:
+	id: 55
+	name: che_ct3
+	location: file://CHEPIS01/folders$/che_ct3
+	id_string: che_ct3
+
+base_folder:
+	id: 56
+	name: che_mr1
+	location: file://CHEPIS01/folders$/che_mr1
+	id_string: che_mr1
+
+base_folder:
+	id: 57
+	name: che_mrws1
+	location: file://CHEPIS01/folders$/che_mrws1
+	id_string: che_mrws1
+
+base_folder:
+	id: 58
+	name: che_mr2
+	location: file://CHEPIS01/folders$/che_mr2
+	id_string: che_mr2
+
+base_folder:
+	id: 59
+	name: che_mrws2
+	location: file://CHEPIS01/folders$/che_mrws2
+	id_string: che_mrws2
+
+base_folder:
+	id: 60
+	name: che_mg1
+	location: file://CHEPIS01/folders$/che_mg1
+	id_string: che_mg1
+
+base_folder:
+	id: 61
+	name: che_mg2
+	location: file://CHEPIS01/folders$/che_mg2
+	id_string: che_mg2
+
+base_folder:
+	id: 62
+	name: che_mg3
+	location: file://CHEPIS01/folders$/che_mg3
+	id_string: che_mg3
+
+base_folder:
+	id: 63
+	name: che_mg4
+	location: file://CHEPIS01/folders$/che_mg4
+	id_string: che_mg4
+
+base_folder:
+	id: 64
+	name: che_us1
+	location: file://CHEPIS01/folders$/che_us1
+	id_string: che_us1
+
+base_folder:
+	id: 65
+	name: che_us2
+	location: file://CHEPIS01/folders$/che_us2
+	id_string: che_us2
+
+base_folder:
+	id: 66
+	name: che_us3
+	location: file://CHEPIS01/folders$/che_us3
+	id_string: che_us3
+
+base_folder:
+	id: 67
+	name: che_us4
+	location: file://CHEPIS01/folders$/che_us4
+	id_string: che_us4
+
+base_folder:
+	id: 68
+	name: che_us5
+	location: file://CHEPIS01/folders$/che_us5
+	id_string: che_us5
+
+base_folder:
+	id: 69
+	name: che_us6
+	location: file://CHEPIS01/folders$/che_us6
+	id_string: che_us6
+
+base_folder:
+	id: 70
+	name: che_xa1
+	location: file://CHEPIS01/folders$/che_xa1
+	id_string: che_xa1
+
+base_folder:
+	id: 71
+	name: che_xa2
+	location: file://CHEPIS01/folders$/che_xa2
+	id_string: che_xa2
+
+base_folder:
+	id: 72
+	name: che_cr1
+	location: file://CHEPIS01/folders$/che_cr1
+	id_string: che_cr1
+
+base_folder:
+	id: 73
+	name: che_cr2
+	location: file://CHEPIS01/folders$/che_cr2
+	id_string: che_cr2
+
+base_folder:
+	id: 74
+	name: che_cr3
+	location: file://CHEPIS01/folders$/che_cr3
+	id_string: che_cr3
+
+base_folder:
+	id: 75
+	name: che_cr4
+	location: file://CHEPIS01/folders$/che_cr4
+	id_string: che_cr4
+
+base_folder:
+	id: 76
+	name: che_dr1
+	location: file://CHEPIS01/folders$/che_dr1
+	id_string: che_dr1
+
+base_folder:
+	id: 77
+	name: che_drrf1
+	location: file://CHEPIS01/folders$/che_drrf1
+	id_string: che_drrf1
+
+base_folder:
+	id: 78
+	name: che_iopx1
+	location: file://CHEPIS01/folders$/che_iopx1
+	id_string: che_iopx1
+
+base_folder:
+	id: 79
+	name: che_ctws1
+	location: file://CHEPIS01/folders$/che_ctws1
+	id_string: che_ctws1
+
+base_folder:
+	id: 80
+	name: che_ctws2
+	location: file://CHEPIS01/folders$/che_ctws2
+	id_string: che_ctws2
+
+base_folder:
+	id: 81
+	name: che_ot1
+	location: file://CHEPIS01/folders$/che_ot1
+	id_string: che_ot1
+
+base_folder:
+	id: 82
+	name: che_ot2
+	location: file://CHEPIS01/folders$/che_ot2
+	id_string: che_ot2
+
+base_folder:
+	id: 83
+	name: che_mgws1
+	location: file://CHEPIS01/folders$/che_mgws1
+	id_string: che_mgws1
+
+base_folder:
+	id: 84
+	name: che_mgws2
+	location: file://CHEPIS01/folders$/che_mgws2
+	id_string: che_mgws2
+
+base_folder:
+	id: 85
+	name: che_mgws3
+	location: file://CHEPIS01/folders$/che_mgws3
+	id_string: che_mgws3
+
+base_folder:
+	id: 86
+	name: che_pet1
+	location: file://CHEPIS01/folders$/che_pet1
+	id_string: che_pet1
+
+base_folder:
+	id: 87
+	name: che_ct4
+	location: file://CHEPIS01/folders$/che_ct4
+	id_string: che_ct4
+
+base_folder:
+	id: 88
+	name: che_nmws1
+	location: file://CHEPIS01/folders$/che_nmws1
+	id_string: che_nmws1
+
+base_folder:
+	id: 89
+	name: che_nm1
+	location: file://CHEPIS01/folders$/che_nm1
+	id_string: che_nm1
+
+base_folder:
+	id: 90
+	name: che_nmws2
+	location: file://CHEPIS01/folders$/che_nmws2
+	id_string: che_nmws2
+
+base_folder:
+	id: 91
+	name: rmaqr
+	location: file://SUTPIS01/folders$/rmaqr
+	id_string: rmaqr
+
+base_folder:
+	id: 92
+	name: 6months
+	location: file://SUTPIS01/folders$/6months
+	id_string: 6months
+
+base_folder:
+	id: 93
+	name: 12months
+	location: file://SUTPIS01/folders$/12months
+	id_string: 12months
+
+base_folder:
+	id: 94
+	name: 18months
+	location: file://SUTPIS01/folders$/18months
+	id_string: 18months
+
+base_folder:
+	id: 95
+	name: 24months
+	location: file://SUTPIS01/folders$/24months
+	id_string: 24months
+
+base_folder:
+	id: 96
+	name: IR On Call PACSMail
+	type_id: 2
+	location: send://10.163.252.112
+	id_string: PACSMail
+
+base_folder:
+	id: 99
+	name: Radiotherapy Planning Sutton
+	type_id: 2
+	location: send://192.168.250.200
+	id_string: Radiotherapy_Planning
+
+base_folder:
+	id: 101
+	name: sut_bur
+	location: file://SUTPIS01/folders$/sut_bur
+	id_string: sut_bur
+
+base_folder:
+	id: 102
+	name: prefetch
+	location: file://SUTPIS01/folders$/prefetch
+	id_string: prefetch
+
+base_folder:
+	id: 104
+	name: net_ret
+	location: file://SUTPIS01/folders$/net_ret
+	id_string: net_ret
+
+base_folder:
+	id: 105
+	name: 13months
+	location: file://SUTPIS01/folders$/13months
+	id_string: 13months
+
+base_folder:
+	id: 106
+	name: 14months
+	location: file://SUTPIS01/folders$/14months
+	id_string: 14months
+
+base_folder:
+	id: 107
+	name: 15months
+	location: file://SUTPIS01/folders$/15months
+	id_string: 15months
+
+base_folder:
+	id: 108
+	name: 16months
+	location: file://SUTPIS01/folders$/16months
+	id_string: 16months
+
+base_folder:
+	id: 109
+	name: 17months
+	location: file://SUTPIS01/folders$/17months
+	id_string: 17months
+
+base_folder:
+	id: 110
+	name: che_ct5
+	location: file://CHEPIS01/folders$/che_ct5
+	id_string: che_ct5
+
+base_folder:
+	id: 111
+	name: 17months_2
+	location: file://CHEPIS01/folders$/17months_2
+	id_string: 17months_2
+
+base_folder:
+	id: 112
+	name: 15months_2
+	location: file://CHEPIS01/folders$/15months_2
+	id_string: 15months_2
+
+base_folder:
+	id: 113
+	name: 16months_2
+	location: file://CHEPIS01/folders$/16months_2
+	id_string: 16months_2
+
+base_folder:
+	id: 114
+	name: che_rf
+	location: file://CHEPIS01/folders$/che_rf
+	id_string: che_rf
+
+base_folder:
+	id: 115
+	name: sut_bbrad
+	location: file://SUTPIS01/folders$/sut_bbrad
+	id_string: sut_bbrad
+
+base_folder:
+	id: 116
+	name: che_us7
+	location: file://CHEPIS01/folders$/che_us7
+	id_string: che_us7
+
+base_folder:
+	id: 117
+	name: RPYS RPACS01
+	type_id: 2
+	location: send://192.168.254.20
+	id_string: rpys_0
+
+base_folder:
+	id: 118
+	name: sut_dr2
+	location: file://SUTPIS01/folders$/sut_dr2
+	id_string: sut_dr2
+
+base_folder:
+	id: 119
+	name: che_dr2
+	location: file://CHEPIS01/folders$/che_dr2
+	id_string: che_dr2
+
+base_folder:
+	id: 120
+	name: che_dr3
+	location: file://CHEPIS01/folders$/che_dr3
+	id_string: che_dr3
+
+base_folder:
+	id: 121
+	name: che_us8
+	location: file://CHEPIS01/folders$/che_us8
+	id_string: che_us8
+
+base_folder:
+	id: 122
+	name: 18months_2
+	location: file://CHEPIS01/folders$/18months_2
+	id_string: 18months_2
+
+base_folder:
+	id: 123
+	name: 14months_2
+	location: file://CHEPIS01/folders$/14months_2
+	id_string: 14months_2
+
+base_folder:
+	id: 124
+	name: 13months_2
+	location: file://CHEPIS01/folders$/13months_2
+	id_string: 13months_2
+
+base_folder:
+	id: 125
+	name: 12months_2
+	location: file://CHEPIS01/folders$/12months_2
+	id_string: 12months_2
+
+base_folder:
+	id: 126
+	name: 11months_2
+	location: file://CHEPIS01/folders$/11months_2
+	id_string: 11months_2
+
+base_folder:
+	id: 127
+	name: 10months_2
+	location: file://CHEPIS01/folders$/10months_2
+	id_string: 10months_2
+
+base_folder:
+	id: 128
+	name: 9months_2
+	location: file://CHEPIS01/folders$/9months_2
+	id_string: 9months_2
+
+base_folder:
+	id: 129
+	name: 8months_2
+	location: file://CHEPIS01/folders$/8months_2
+	id_string: 8months_2
+
+base_folder:
+	id: 130
+	name: 7months_2
+	location: file://CHEPIS01/folders$/7months_2
+	id_string: 7months_2
+
+base_folder:
+	id: 131
+	name: 6months_2
+	location: file://CHEPIS01/folders$/6months_2
+	id_string: 6months_2
+
+base_folder:
+	id: 132
+	name: sut_nm8
+	location: file://SUTPIS01/folders$/sut_nm8
+	id_string: sut_nm8
+
+base_folder:
+	id: 133
+	name: sut_nmws5
+	location: file://SUTPIS01/folders$/sut_nmws5
+	id_string: sut_nmws5
+
+base_folder:
+	id: 134
+	name: sut_nmws6
+	location: file://SUTPIS01/folders$/sut_nmws6
+	id_string: sut_nmws6
+
+base_folder:
+	id: 135
+	name: sut_us5
+	location: file://SUTPIS01/folders$/sut_us5
+	id_string: sut_us5
+
+base_folder:
+	id: 136
+	name: sut_nm9
+	location: file://SUTPIS01/folders$/sut_nm9
+	id_string: sut_nm9
+
+base_folder:
+	id: 137
+	name: sut_nm10
+	location: file://SUTPIS01/folders$/sut_nm10
+	id_string: sut_nm10
+
+base_folder:
+	id: 138
+	name: sut_7930
+	location: file://SUTPIS01/folders$/sut_7930
+	id_string: sut_7930
+
+base_folder:
+	id: 139
+	name: sut_7931
+	location: file://SUTPIS01/folders$/sut_7931
+	id_string: sut_7931
+
+base_folder:
+	id: 140
+	name: sut_7932
+	location: file://SUTPIS01/folders$/sut_7932
+	id_string: sut_7932
+
+base_folder:
+	id: 141
+	name: sut_7933
+	location: file://SUTPIS01/folders$/sut_7933
+	id_string: sut_7933
+
+base_folder:
+	id: 142
+	name: sut_7934
+	location: file://SUTPIS01/folders$/sut_7934
+	id_string: sut_7934
+
+base_folder:
+	id: 143
+	name: che_7935
+	location: file://CHEPIS01/folders$/che_7935
+	id_string: che_7935
+
+base_folder:
+	id: 144
+	name: che_7936
+	location: file://CHEPIS01/folders$/che_7936
+	id_string: che_7936
+
+base_folder:
+	id: 145
+	name: che_7937
+	location: file://CHEPIS01/folders$/che_7937
+	id_string: che_7937
+
+base_folder:
+	id: 146
+	name: che_7938
+	location: file://CHEPIS01/folders$/che_7938
+	id_string: che_7938
+
+base_folder:
+	id: 147
+	name: che_7939
+	location: file://CHEPIS01/folders$/che_7939
+	id_string: che_7939
+
+base_folder:
+	id: 148
+	name: sut_ot5
+	location: file://SUTPIS01/folders$/sut_ot5
+	id_string: sut_ot5
+
+base_folder:
+	id: 149
+	name: Radiotherapy Planning Chelsea
+	type_id: 2
+	location: send://192.168.248.2
+	id_string: Radiotherapy__Planning_Chelsea
+
+base_folder:
+	id: 150
+	name: che_bur
+	location: file://CHEPIS01/folders$/che_bur
+	id_string: che_bur
+
+base_folder:
+	id: 151
+	name: che_default
+	location: file://CHEPIS01/folders$/che_default
+	id_string: che_default
+
+base_folder:
+	id: 152
+	name: che_mg5
+	location: file://CHEPIS01/folders$/che_mg5
+	id_string: che_mg5
+
+base_folder:
+	id: 153
+	name: Urostation
+	type_id: 2
+	location: send://192.168.142.194
+	id_string: trdest_KOELIS
+
+base_folder:
+	id: 154
+	name: sut_mg5
+	location: file://SUTPIS01/folders$/sut_mg5
+	id_string: sut_mg5
+
+base_folder:
+	id: 155
+	name: NICAM
+	location: file://CHEPIS01/folders$/NICAM
+	id_string: NICAM
+
+base_folder:
+	id: 156
+	name: sut_us6
+	location: file://SUTPIS01/folders$/sut_us6
+	id_string: sut_us6
+

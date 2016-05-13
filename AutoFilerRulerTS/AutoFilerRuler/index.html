@@ -15,25 +15,22 @@
     <script src="TSclasses/Basefolder.js"></script>
 </head>
     <body>
-        <h1>AF Config Parser</h1>
-
-        <div id="content"></div>
-
+        <h1>AF Config Parser - 1.0</h1>
+        
         <div id="inputContainer">
             <div id="textAreaDiv">
                 <div id="ruleAreaDiv">
-                    <textarea class="form-control" id="ruletextarea" placeholder="Enter Autofiler.def here..."></textarea>
+                    <textarea class="form-control" id="ruletextarea" spellcheck="false" placeholder="Enter Autofiler.def here..."></textarea>
                     <button class="btn btn-secondary" id="btnParseAF">Parse Autofiler config</button>
+                    <h2 id="h2RuleCount"></h2>
+
                 </div>
                 <div id="bfAreaDiv">
-                    <textarea class="form-control" id="bftextarea" placeholder="Enter basefolder dump here..."></textarea>
+                    <textarea class="form-control" id="bftextarea" spellcheck="false" placeholder="Enter basefolder dump here..."></textarea>
                     <button class="btn btn-secondary" id="btnParseBF">Parse Basefolder dump</button>
-                </div>
-                <div>
-                    
+                    <h2 id="h2BfCount"></h2>
                 </div>
             </div>
-
 
             <div class="panel-group" id="accordion">
                 <div class="panel panel-default">
@@ -85,11 +82,13 @@
                 </div>
             </div>
         </div>
+        <button class="btn btn-secondary" id="btnSwitchTable">Go to basefolder view</button>
 
-        <h2 id="h2RuleCount">Autofiler Rules</h2>
+
         <!--<p>The .table-hover class enables a hover state on table rows:</p>-->
         <div id="tablediv">
-            <table id="nicetable" class="table table-hover"></table>
+            <table id="AFtable" class="table table-hover"></table>
+            <table id="BFtable" hidden="hidden" class="table table-hover"></table>
         </div>
 </body>
 </html>

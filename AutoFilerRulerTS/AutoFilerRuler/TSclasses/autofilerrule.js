@@ -1,6 +1,7 @@
 var AutofilerRule = (function () {
     //Constructor
     function AutofilerRule(id) {
+        this.id = 0;
         this.name = "";
         this.purgeTimeoutSec = -1;
         this.purgeTimeoutDays = -1;
@@ -19,7 +20,7 @@ var AutofilerRule = (function () {
         this.rffMaxArchTimeout = -1;
         this.enableStatecheck = "";
         this.minimum = "";
-        this.name = id;
+        this.id = id;
     }
     AutofilerRule.prototype.set = function (field, value) {
         if (field === "interval") {
@@ -86,7 +87,7 @@ var AutofilerRule = (function () {
     AutofilerRule.prototype.CreateTableRow = function () {
         //Get member variables of this class
         var memVars = Object.getOwnPropertyNames(this);
-        console.log(memVars);
+        //console.log(memVars);
         //Create a blank table row
         var row = document.createElement('tr');
         //For each variable add a new cell

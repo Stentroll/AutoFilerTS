@@ -18,6 +18,7 @@
     <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="bfdump.txt" />
     <Content Include="Styling\app.css" />
     <Content Include="TSclasses\autofilerrule.js" />
     <Content Include="TSclasses\AutofilerRule.ts" />

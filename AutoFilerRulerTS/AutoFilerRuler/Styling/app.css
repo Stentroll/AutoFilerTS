@@ -74,6 +74,9 @@ thead tr:hover {}
     white-space: nowrap;
 }
 
+#tablediv tr:nth-child(even) {
+    background-color: #252525;
+}
 
 #filters {
     float: left;
@@ -138,7 +141,7 @@ thead tr:hover {}
 #textAreaDiv {
     width: 50%;
     clear: none;
-    height: 300px;
+    height: inherit;
     float: left;
 }
 
@@ -171,5 +174,10 @@ thead tr:hover {}
 #inputContainer {
     width: 100%;
     clear: both;
-    height: 300px;
+    height: 320px;
+
+}
+
+#btnSwitchTable { 
+    width: 160px;
 }
