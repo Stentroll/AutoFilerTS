@@ -69,6 +69,8 @@ function ParseAFConfig() {
     console.log("Rules found:" + ruleList.length);
     BuildAFTable();
     BuildBFTable();
+    document.getElementById('h2RuleCount').innerHTML = "Autofiler Rules: " + ruleList.length;
+
 }
 
 function ParseBFConfig() {
@@ -76,6 +78,7 @@ function ParseBFConfig() {
     ParseBasefolderDump();
     console.log("Basefolders found:" + bfList.length);
     BuildBFTable();
+    document.getElementById('h2BfCount').innerHTML = "Basefolders: " + bfList.length;
 }
 
 function FilterBfId(rule) {
@@ -143,9 +146,9 @@ function CreateFilterChecks() {
 
 function BuildAFTable(): void {
 
-    //if (ruleList.length == 0) {
-    //    return;
-    //}
+    if (ruleList.length == 0) {
+        return;
+    }
 
     var tmpList: AutofilerRule[];
     tmpList = ruleList;
@@ -170,8 +173,6 @@ function BuildAFTable(): void {
         var checkboxtmp: HTMLInputElement = <HTMLInputElement>checkboxElementArray[n];
         checksBoolArray.push(checkboxtmp.checked);
     }
-
-    document.getElementById('h2RuleCount').innerHTML = "Autofiler Rules: " + tmpList.length;
 
     var tbl: HTMLTableElement = <HTMLTableElement>document.getElementById("AFtable");
     var newtable: HTMLTableElement = document.createElement("table");
@@ -216,9 +217,9 @@ function BuildAFTable(): void {
 
 function BuildBFTable(): void {
 
-    if (bfList.length == 0) {
-        return;
-    }
+    //if (bfList.length == 0) {
+    //    return;
+    //}
 
     var tmpAFList: AutofilerRule[];
     tmpAFList = ruleList;
@@ -392,7 +393,6 @@ function ParseBasefolderDump() {
     }
 
     console.log("Basefolders found:" + bfList.length);
-    document.getElementById('h2BfCount').innerHTML = "Basefolders: " + bfList.length;
 }
 
 function PopulateTextArea(): void {

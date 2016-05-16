@@ -91,7 +91,7 @@ thead tr:hover {}
 
 #filters label {
     float: left;
-    width: auto;
+    width: 100%;
     margin-right: 10px;
     vertical-align: central;
 }
@@ -114,7 +114,7 @@ thead tr:hover {}
 
 #fieldSelectors div {
     float: left;
-    width: 25%;
+    width: 20%;
     clear: none;
     margin-right: 5%;
 }
