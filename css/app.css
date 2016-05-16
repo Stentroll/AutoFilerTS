@@ -117,6 +117,7 @@ thead tr:hover {}
     width: 20%;
     clear: none;
     margin-right: 5%;
+    height: inherit;
 }
 
 #fieldSelectors div:hover {
