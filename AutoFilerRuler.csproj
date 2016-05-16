@@ -19,7 +19,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="bfdump.txt" />
-    <Content Include="Styling\app.css" />
+    <Content Include="css\app.css" />
     <None Include="index.php" />
     <Content Include="TSclasses\autofilerrule.js" />
     <Content Include="TSclasses\AutofilerRule.ts" />
