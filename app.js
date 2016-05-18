@@ -10,6 +10,7 @@ var txtFilterId;
 var txtFilterName;
 var cbHideDisabled;
 window.onload = function () {
+    //Lets get Angular up in here
     //Assign elements
     txtFilterId = document.getElementById('txtFilterId');
     txtFilterName = document.getElementById('txtFilterName');

@@ -16,6 +16,8 @@ var txtFilterName: HTMLInputElement;
 var cbHideDisabled: HTMLInputElement;
 
 window.onload = () => {    
+    //Lets get Angular up in here
+
    //Assign elements
     txtFilterId = <HTMLInputElement> document.getElementById('txtFilterId');
     txtFilterName = <HTMLInputElement> document.getElementById('txtFilterName');
