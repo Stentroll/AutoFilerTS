@@ -1,5 +1,4 @@
 var AutofilerRule = (function () {
-    //Constructor
     function AutofilerRule(id) {
         this.id = 0;
         this.name = "";
@@ -85,21 +84,15 @@ var AutofilerRule = (function () {
         console.log("Hello! I am rule " + this.name);
     };
     AutofilerRule.prototype.CreateTableRow = function () {
-        //Get member variables of this class
         var memVars = Object.getOwnPropertyNames(this);
-        //console.log(memVars);
-        //Create a blank table row
         var row = document.createElement('tr');
-        //For each variable add a new cell
         for (var propRef in memVars) {
             var property = memVars[+propRef];
             var cell = row.insertCell(+propRef);
-            //If value was not set leave blank, temp workaround?
             if (this[property] == -1) {
                 cell.innerHTML = "";
             }
             else {
-                //Special case to set basefolder array separators
                 if (property == "basefolders") {
                     var temp = this[property];
                     cell.innerHTML = temp.join(", ");
@@ -113,4 +106,3 @@ var AutofilerRule = (function () {
     };
     return AutofilerRule;
 }());
-//# sourceMappingURL=autofilerrule.js.map

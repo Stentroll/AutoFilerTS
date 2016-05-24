@@ -3,7 +3,6 @@ body {
     font-family: 'Segoe UI', sans-serif;
     background-color: #222;
     color: #ddd;
-    /*margin: 20px;*/
     overflow-y: scroll;
 }
 
@@ -23,7 +22,6 @@ input {
 }
 
 .filterlabel {
-    /*width: 160px;*/
     color: #fff;
     font-weight: 400;
     color: #ddddee;
@@ -32,7 +30,6 @@ input {
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
   background-color: #334;
-  /*font-weight: bold;*/
 }
 
 thead tr:hover {}
@@ -181,7 +178,6 @@ thead tr:hover {}
     width: 100%;
     clear: both;
     height: 320px;
-
 }
 
 #btnSwitchTable { 

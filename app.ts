@@ -1,13 +1,13 @@
 ﻿/// <reference path="tsclasses/basefolder.ts" />
 /// <reference path="TSclasses/autofilerrule.ts" />
+/// <reference path="TSclasses/AutofilerParser.ts" />
 ///<reference path='jquery.d.ts'/>
 
+var afParser = new AutofilerParser();
+var bfParser = new BasefolderParser();
 
-var ruleList : AutofilerRule[];
-ruleList = [];
-
-var bfList: Basefolder[];
-bfList = [];
+var ruleList : AutofilerRule[] = [];
+var bfList: Basefolder[] = [];
 
 var AFview: boolean = true;
  
@@ -45,7 +45,7 @@ window.onload = () => {
 
     txtFilterId.onkeyup = () => { BuildAFTable(); BuildBFTable(); };
     txtFilterName.onkeyup = () => { BuildAFTable(); BuildBFTable();  };
-    cbHideDisabled.onchange = () => { BuildAFTable(); BuildBFTable();  };
+    cbHideDisabled.onchange = () => { BuildAFTable(); BuildBFTable(); };
 };
 
 function ShowHideAllColumns(show: boolean): void {
@@ -67,7 +67,9 @@ function ClearFilters(): void {
 }
 
 function ParseAFConfig() {
-    ParseAutofilerCfg();
+    var textBox: HTMLTextAreaElement = <HTMLTextAreaElement>document.getElementById("ruletextarea");
+    var cfgText = textBox.value;
+    ruleList = afParser.ParseAutofilerConfig(cfgText);
     console.log("Rules found:" + ruleList.length);
     BuildAFTable();
     BuildBFTable();
@@ -76,14 +78,15 @@ function ParseAFConfig() {
 }
 
 function ParseBFConfig() {
-    bfList = [];
-    ParseBasefolderDump();
+    var textBox: HTMLTextAreaElement = <HTMLTextAreaElement>document.getElementById("bftextarea");
+    var bfText: string = textBox.value;
+    bfList = bfParser.ParseBasefolderDump(bfText);
     console.log("Basefolders found:" + bfList.length);
     BuildBFTable();
     document.getElementById('h2BfCount').innerHTML = "Basefolders: " + bfList.length;
 }
 
-function FilterBfId(rule) {
+function FilterAFonBfId(rule) {
     var tmp: number[] = rule.basefolders;
     if (tmp.indexOf(this.valueOf()) === -1) {
         return false;
@@ -93,7 +96,7 @@ function FilterBfId(rule) {
     }
 }
 
-function FilterBFonId(bf) {
+function FilterBFonBFId(bf) {
     var tmp: number = bf.id;
     if (tmp != this.valueOf()) {
         return false;
@@ -103,7 +106,7 @@ function FilterBFonId(bf) {
     }
 }
 
-function FilterRuleName(rule) {
+function FilterAFonRuleName(rule) {
     var tmp: string = rule.name;
     tmp = tmp.toLowerCase();
     if (tmp.indexOf(this.toLowerCase()) === -1) {
@@ -158,11 +161,11 @@ function BuildAFTable(): void {
 
     //Handle filtering functions
     if (txtFilterId.value.length != 0) {
-        tmpList = tmpList.filter(FilterBfId, Number(txtFilterId.value));
+        tmpList = tmpList.filter(FilterAFonBfId, Number(txtFilterId.value));
     }
 
     if (txtFilterName.value.length != 0) {
-        tmpList = tmpList.filter(FilterRuleName, txtFilterName.value);
+        tmpList = tmpList.filter(FilterAFonRuleName, txtFilterName.value);
     }
 
     if (cbHideDisabled.checked) {
@@ -177,23 +180,34 @@ function BuildAFTable(): void {
     }
 
     var tbl: HTMLTableElement = <HTMLTableElement>document.getElementById("AFtable");
-    var newtable: HTMLTableElement = document.createElement("table");
-    var thead = <HTMLTableSectionElement>newtable.createTHead();
-    var tbody = <HTMLTableSectionElement>newtable.createTBody();
+    var newTable: HTMLTableElement = document.createElement("table");
+    var thead = <HTMLTableSectionElement>newTable.createTHead();
+    var tbody = <HTMLTableSectionElement>newTable.createTBody();
     var headrow: HTMLTableRowElement = <HTMLTableRowElement>thead.insertRow();
     var properties = Object.getOwnPropertyNames(new AutofilerRule(null));
+    var headerCell: HTMLTableHeaderCellElement;
 
-    newtable.className = 'datatable table-hover table-responsive';
-    newtable.id = "AFtable";
-    newtable.hidden = !AFview;
+
+    newTable.id = "AFtable";
+    newTable.className = "table table-hover";
+    newTable.setAttribute("data-toggle", "table");
+    newTable.setAttribute("data-search", "true");
+    newTable.setAttribute("data-show-columns", "true");
+    newTable.setAttribute("data-show-multi-sort", "true");
+    newTable.setAttribute("data-pagination", "true");
+    newTable.setAttribute("data-page-size", "50");
+    newTable.setAttribute("data-show-refresh", "true");
+    newTable.setAttribute("data-show-export", "true");
     
-
     //Build the table header
     for (var propRef in properties) {
         if (checksBoolArray[propRef]) {
             var propertyName = properties[propRef];
-            var hcell: HTMLTableHeaderCellElement = <HTMLTableHeaderCellElement>headrow.insertCell();
-            hcell.innerHTML = propertyName;
+
+            headerCell = <HTMLTableHeaderCellElement>document.createElement("th");
+            headerCell.setAttribute("data-sortable", "true");
+            headrow.appendChild(headerCell);
+            headerCell.innerHTML = propertyName;
         }
     }
 
@@ -201,6 +215,7 @@ function BuildAFTable(): void {
     for (var ruleRef in tmpList) {
         var rule: AutofilerRule = tmpList[ruleRef];
         var row: HTMLTableRowElement = rule.CreateTableRow();
+        row.setAttribute("data-index", ruleRef);
 
         for (var checkBool in checksBoolArray) {
             if (!checksBoolArray[checkBool]) {
@@ -208,13 +223,18 @@ function BuildAFTable(): void {
                 cell.hidden = true;
             }
         }
-
         tbody.appendChild(row);
     }
+    //tbl.remove();
+    //document.getElementById("af-table-div").removeChild(tbl);
+    //document.getElementById("af-table-div").appendChild(newTable);
+    //console.log(tbl);
+    //console.log(newTable);
+    //tbl = newTable;
 
-    document.getElementById("tablediv").removeChild(tbl);
-    document.getElementById("tablediv").appendChild(newtable);
-    tbl = newtable;
+    console.log(tbl.children.item(1));
+    tbl.children.item(1).innerHTML = tbody.innerHTML;
+
 }
 
 function BuildBFTable(): void {
@@ -239,7 +259,7 @@ function BuildBFTable(): void {
 
     newtable.className = 'table-hover table-responsive';
     newtable.id = "BFtable";
-    newtable.hidden = AFview;
+    //newtable.hidden = AFview;
     
     hcell = <HTMLTableHeaderCellElement>headrow.insertCell();
     hcell.innerHTML = "Basefolder ID";
@@ -250,7 +270,7 @@ function BuildBFTable(): void {
 
     //Handle filtering functions
     if (txtFilterId.value.length != 0) {
-        tmpBFList = bfList.filter(FilterBFonId, Number(txtFilterId.value));
+        tmpBFList = bfList.filter(FilterBFonBFId, Number(txtFilterId.value));
     }
 
     for (var bfRef in tmpBFList) {
@@ -264,7 +284,7 @@ function BuildBFTable(): void {
         var cell = row.insertCell(row.cells.length);
         cell.innerHTML = bf.name;
 
-        tmpAFList = ruleList.filter(FilterBfId, Number(bf.id));
+        tmpAFList = ruleList.filter(FilterAFonBfId, Number(bf.id));
 
         var cell = row.insertCell(row.cells.length);
         cell.innerHTML = "";
@@ -277,127 +297,15 @@ function BuildBFTable(): void {
 
         tbody.appendChild(row);
 
-        document.getElementById("tablediv").removeChild(tbl);
-        document.getElementById("tablediv").appendChild(newtable);
+        document.getElementById("bf-table-div").removeChild(tbl);
+        document.getElementById("bf-table-div").appendChild(newtable);
         tbl = newtable;
     }
 }
 
-function ParseAutofilerCfg() {
-    var textBox: HTMLTextAreaElement = <HTMLTextAreaElement>document.getElementById("ruletextarea");
-    var cfgText = textBox.value;
-    var lines = cfgText.split("\n");
-    var ruleNames: string[] = [];
-    var counter: number = 0;
-
-    ruleList = [];
-
-    if (cfgText == "") { return; }
-    if (cfgText == null) { return; }
-
-    for (var index in lines) {
-        var line = lines[index];
-        var statecheck: boolean = false;
-        var rule: AutofilerRule;
-
-        //If it is a commented line skip to next
-        if (line == "") { continue; }
-        if (line == null) { continue; }
-        if (line[0] == '#') { continue; }
-
-        if (line.indexOf("{") != -1) {
-
-            if (line.indexOf("state_check") != -1) {
-                statecheck = true;
-            }
-            else if (line.indexOf("disk_check") != -1 || line.indexOf("auto_archive") != -1) {
-                //Nothing really
-            }
-            else {
-                var value = line.split("{")[0].trim();
-                statecheck = false;
-                rule = new AutofilerRule(counter);
-                rule.name = value;
-                counter = counter + 1;
-            }
-            continue;
-        }
-
-        if (line.indexOf("<") != -1 && line.indexOf(">") != -1) {
-            var field = line.split(RegExp("<"))[0].trim();
-            var value = line.split(RegExp("<"))[1].trim();
-
-            field = field.replace("\>", "");
-            value = value.replace("\>", "");
-
-
-            if (statecheck && field.indexOf("enable") != -1) {
-                field = "enableStatecheck";
-            }
-            rule.set(field, value);
-        }
-
-        //If line has a closing bracket it means closing of a rule. If it is a second closing bracket it means we have left disk_check, end function and return list.
-        //Else add current rule to List, create a new one and start over.
-        if (line.indexOf("}") != -1) {
-            if (statecheck) {
-                statecheck = false;
-                continue;
-            }
-            //if (rule.name != null && ruleNames.indexOf(rule.name) == -1) {
-            if (rule.name != null && counter > ruleList.length) {
-                ruleList.push(rule);
-                ruleNames.push(rule.name);
-            }
-        }
-    }
-}
-
-function ParseBasefolderDump() {
-    var textBox: HTMLTextAreaElement = <HTMLTextAreaElement>document.getElementById("bftextarea");
-    var bfText : string = textBox.value;
-    var lines = bfText.split("\n");
-    var ruleNames: string[] = [];
-    var field: string;
-    var value: string;
-    var bf: Basefolder;
-
-    if (bfText == "") { return; }
-    if (bfText == null) { return; }
-
-    bfList = [];
-
-    for (var index in lines) {
-        var line = lines[index];
-        line = line.trim();
-       
-        //If it is a commented or empty line skip to next
-        if (line == "") { continue; }
-        if (line == null) { continue; }
-        if (line[0] == '#') { continue; }
-
-        if (line.indexOf("base_folder") != -1) {
-            
-            if (typeof bf != 'undefined') { bfList.push(bf); }
-            bf = new Basefolder();
-            continue;
-        }
-        else {
-            field = line.split(":", 1)[0];
-            value = line.replace(field + ":", "");
-            bf.Set(field, value);
-        }
-    }
-
-    if (typeof bf != 'undefined') { 
-        console.log("hej2");
-        bfList.push(bf);
-    }
-
-    console.log("Basefolders found:" + bfList.length);
-}
-
 function PopulateTextArea(): void {
+    console.log("Filling textareas with demo data...");
+
     var AFtextBox: HTMLTextAreaElement = <HTMLTextAreaElement>document.getElementById("ruletextarea");
     var BFtextBox: HTMLTextAreaElement = <HTMLTextAreaElement>document.getElementById("bftextarea");
 
@@ -407,9 +315,9 @@ function PopulateTextArea(): void {
 }
 
 function SwitchTable(): void {
-    var AFtbl: HTMLTableElement = <HTMLTableElement>document.getElementById("AFtable");
-    var BFtbl: HTMLTableElement = <HTMLTableElement>document.getElementById("BFtable");
-    var btnSwitchTable: HTMLTableElement = <HTMLTableElement>document.getElementById("btnSwitchTable");
+    var AFtbl: HTMLDivElement = <HTMLDivElement>document.getElementById("af-table-div");
+    var BFtbl: HTMLDivElement = <HTMLDivElement>document.getElementById("bf-table-div");
+    var btnSwitchTable: HTMLButtonElement = <HTMLButtonElement>document.getElementById("btnSwitchTable");
     
 
     if (AFview) {
