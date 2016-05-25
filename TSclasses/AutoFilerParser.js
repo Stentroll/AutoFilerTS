@@ -5,7 +5,7 @@ var AutofilerParser = (function () {
         var lines = cfgText.split("\n");
         var ruleNames = [];
         var counter = 0;
-        ruleList = [];
+        var ruleList = [];
         if (cfgText == "") {
             return;
         }

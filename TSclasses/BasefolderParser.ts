@@ -15,7 +15,7 @@
 
 
         for (let index in lines) {
-            var line = lines[index];
+            let line = lines[index];
             line = line.trim();
 
             //If it is a commented or empty line skip to next

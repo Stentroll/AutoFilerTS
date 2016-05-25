@@ -2,16 +2,16 @@
 
     ParseAutofilerConfig(cfgText: string): AutofilerRule[] {
 
-        var lines = cfgText.split("\n");
-        var ruleNames: string[] = [];
-        var counter: number = 0;
+        let lines = cfgText.split("\n");
+        let ruleNames: string[] = [];
+        let counter: number = 0;
 
-        ruleList = [];
+        let ruleList: AutofilerRule[] = [];
 
         if (cfgText == "") { return; }
         if (cfgText == null) { return; }
 
-        for (var index in lines) {
+        for (let index in lines) {
             var line = lines[index];
             var statecheck: boolean = false;
             var rule: AutofilerRule;
@@ -30,7 +30,7 @@
                     //Nothing really
                 }
                 else {
-                    var value = line.split("{")[0].trim();
+                    let value = line.split("{")[0].trim();
                     statecheck = false;
                     rule = new AutofilerRule(counter);
                     rule.name = value;
@@ -40,8 +40,8 @@
             }
 
             if (line.indexOf("<") != -1 && line.indexOf(">") != -1) {
-                var field = line.split(RegExp("<"))[0].trim();
-                var value = line.split(RegExp("<"))[1].trim();
+                let field = line.split(RegExp("<"))[0].trim();
+                let value = line.split(RegExp("<"))[1].trim();
 
                 field = field.replace("\>", "");
                 value = value.replace("\>", "");

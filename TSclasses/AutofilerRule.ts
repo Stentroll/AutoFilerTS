@@ -56,7 +56,7 @@
         else if ((field === "base_folder_ids")) {
             try {
                 value = value.trim();
-                var temp = value.split(" ").map(Number);
+                let temp = value.split(" ").map(Number);
                 this.basefolders = temp;
             }
             catch (Exception) {
@@ -93,15 +93,15 @@
 
     public CreateTableRow(): HTMLTableRowElement {
         //Get member variables of this class
-        var memVars = Object.getOwnPropertyNames(this);
+        let memVars = Object.getOwnPropertyNames(this);
         //console.log(memVars);
         //Create a blank table row
-        var row: HTMLTableRowElement = document.createElement('tr');
+        let row: HTMLTableRowElement = document.createElement('tr');
 
         //For each variable add a new cell
-        for (var propRef in memVars) {
-            var property = memVars[+propRef];
-            var cell = row.insertCell(+propRef);
+        for (let propRef in memVars) {
+            let property = memVars[+propRef];
+            let cell = row.insertCell(+propRef);
 
             //If value was not set leave blank, temp workaround?
             if (this[property] == -1) {
@@ -110,7 +110,7 @@
             else {
                 //Special case to set basefolder array separators
                 if (property == "basefolders") {
-                    var temp: string[] = this[property];
+                    let temp: string[] = this[property];
                     cell.innerHTML = temp.join(", ");
                 }
                 else

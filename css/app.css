@@ -184,6 +184,18 @@ thead tr:hover {}
     width: 160px;
 }
 
-table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after { 
+table.sortable th:after { 
     content: " \25B4\25BE" 
+}
+
+/*table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after { 
+    content: " \25B4\25BE" 
+}*/
+
+#sorttable_sortfwdind {
+    display: none;
+}
+
+#sorttable_sortrevind {
+    display: none;
 }

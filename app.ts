@@ -3,6 +3,7 @@
 /// <reference path="TSclasses/AutofilerParser.ts" />
 ///<reference path='jquery.d.ts'/>
 
+
 var afParser = new AutofilerParser();
 var bfParser = new BasefolderParser();
 
@@ -14,6 +15,8 @@ var AFview: boolean = true;
 var txtFilterId: HTMLInputElement;
 var txtFilterName: HTMLInputElement;
 var cbHideDisabled: HTMLInputElement;
+
+declare var sorttable: any;
 
 
 window.onload = () => {    
@@ -219,7 +222,7 @@ function BuildAFTable(): void {
     tbl.remove();
     document.getElementById("af-table-div").appendChild(newTable);
     //var hej = document.getElementById("AFtable");
-    
+
     sorttable.makeSortable(newTable);
 }
 
