@@ -140,15 +140,7 @@ function BuildAFTable() {
     var properties = Object.getOwnPropertyNames(new AutofilerRule(null));
     var headerCell;
     newTable.id = "AFtable";
-    newTable.className = "table table-hover";
-    newTable.setAttribute("data-toggle", "table");
-    newTable.setAttribute("data-search", "true");
-    newTable.setAttribute("data-show-columns", "true");
-    newTable.setAttribute("data-show-multi-sort", "true");
-    newTable.setAttribute("data-pagination", "true");
-    newTable.setAttribute("data-page-size", "50");
-    newTable.setAttribute("data-show-refresh", "true");
-    newTable.setAttribute("data-show-export", "true");
+    newTable.className = 'sortable table-hover table-responsive';
     for (var propRef in properties) {
         if (checksBoolArray[propRef]) {
             var propertyName = properties[propRef];
@@ -170,8 +162,9 @@ function BuildAFTable() {
         }
         tbody.appendChild(row);
     }
-    console.log(tbl.children.item(1));
-    tbl.children.item(1).innerHTML = tbody.innerHTML;
+    tbl.remove();
+    document.getElementById("af-table-div").appendChild(newTable);
+    sorttable.makeSortable(newTable);
 }
 function BuildBFTable() {
     var tmpAFList;

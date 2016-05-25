@@ -15,9 +15,8 @@ var txtFilterId: HTMLInputElement;
 var txtFilterName: HTMLInputElement;
 var cbHideDisabled: HTMLInputElement;
 
-window.onload = () => {    
-    //Lets get Angular up in here
 
+window.onload = () => {    
    //Assign elements
     txtFilterId = <HTMLInputElement> document.getElementById('txtFilterId');
     txtFilterName = <HTMLInputElement> document.getElementById('txtFilterName');
@@ -189,15 +188,7 @@ function BuildAFTable(): void {
 
 
     newTable.id = "AFtable";
-    newTable.className = "table table-hover";
-    newTable.setAttribute("data-toggle", "table");
-    newTable.setAttribute("data-search", "true");
-    newTable.setAttribute("data-show-columns", "true");
-    newTable.setAttribute("data-show-multi-sort", "true");
-    newTable.setAttribute("data-pagination", "true");
-    newTable.setAttribute("data-page-size", "50");
-    newTable.setAttribute("data-show-refresh", "true");
-    newTable.setAttribute("data-show-export", "true");
+    newTable.className = 'sortable table-hover table-responsive';
     
     //Build the table header
     for (var propRef in properties) {
@@ -225,17 +216,13 @@ function BuildAFTable(): void {
         }
         tbody.appendChild(row);
     }
-    //tbl.remove();
-    //document.getElementById("af-table-div").removeChild(tbl);
-    //document.getElementById("af-table-div").appendChild(newTable);
-    //console.log(tbl);
-    //console.log(newTable);
-    //tbl = newTable;
-
-    console.log(tbl.children.item(1));
-    tbl.children.item(1).innerHTML = tbody.innerHTML;
-
+    tbl.remove();
+    document.getElementById("af-table-div").appendChild(newTable);
+    //var hej = document.getElementById("AFtable");
+    
+    sorttable.makeSortable(newTable);
 }
+
 
 function BuildBFTable(): void {
 

@@ -34,7 +34,6 @@
     <Content Include="Scripts\i18n\angular-locale_uk.js" />
     <Content Include="Scripts\i18n\angular-locale_ur-in.js" />
     <Content Include="Scripts\i18n\angular-locale_ur-pk.js" />
-    <Content Include="table.html" />
     <Content Include="TSclasses\AutoFilerParser.js" />
     <Content Include="TSclasses\autofilerrule.js" />
     <Content Include="TSclasses\AutofilerRule.ts" />

@@ -11,11 +11,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">  
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.js"></script>
+
+    <script type="text/javascript" src="http://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/bootstrap-table.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/locale/bootstrap-table-en-US.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/extensions/filter/bootstrap-table-filter.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/extensions/export/bootstrap-table-export.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.10.1/extensions/export/bootstrap-table-export.js"></script>-->
 
 
     <script src="TSclasses/autofilerrule.js"></script>
@@ -99,28 +101,9 @@
 
         <div id="tablediv">
             <div id="af-table-div" class="bootstrap-table">
-                <table id="AFtable" data-toggle="table" data-search="true" data-show-columns="true" data-show-multi-sort="true" data-pagination="true" data-page-size="50" data-show-refresh="true" data-show-export="true">
-                    <thead>
-                        <tr>
-                            <th data-field="id">Item ID</th>
-                            <th data-field="name">Item Name</th>
-                            <th data-field="price">Item Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Item 1</td>
-                            <td>$1</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Item 2</td>
-                            <td>$2</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!--<table id="AFtable" class="table table-hover"></table>-->
+                <!--<table id="AFtable" data-toggle="table" data-search="true" data-show-columns="true" data-show-multi-sort="true" data-pagination="true" data-page-size="50" data-show-refresh="true" data-show-export="true">
+                </table>-->
+                <table id="AFtable"></table>
             </div>
             <div id="bf-table-div" class="bootstrap-table" hidden="hidden">
                 <table id="BFtable" class="table table-hover"></table>
