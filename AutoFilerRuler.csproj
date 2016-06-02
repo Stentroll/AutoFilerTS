@@ -37,7 +37,7 @@
     <Content Include="TSclasses\AutoFilerParser.js" />
     <Content Include="TSclasses\autofilerrule.js" />
     <Content Include="TSclasses\AutofilerRule.ts" />
-    <Content Include="index.html" />
+    <Content Include="home.html" />
     <Content Include="Scripts\typings\jquery\jquery.d.ts" />
     <Content Include="TSclasses\Basefolder.js" />
     <Content Include="TSclasses\BasefolderParser.js" />
@@ -54,6 +54,7 @@
     <Content Include="TSclasses\autofilerrule.js.map" />
     <Content Include="TSclasses\Basefolder.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="index.php" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
