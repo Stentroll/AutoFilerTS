@@ -226,7 +226,6 @@ function BuildAFTable(): void {
     sorttable.makeSortable(newTable);
 }
 
-
 function BuildBFTable(): void {
 
     //if (bfList.length == 0) {
