@@ -1,5 +1,4 @@
 ﻿class AutofilerParser {
-
     ParseAutofilerConfig(cfgText: string): AutofilerRule[] {
 
         let lines = cfgText.split("\n");
@@ -20,13 +19,13 @@
             if (line == "") { continue; }
             if (line == null) { continue; }
             if (line[0] == '#') { continue; }
-
-            if (line.indexOf("{") != -1) {
-
-                if (line.indexOf("state_check") != -1) {
+            
+            if (this.StringContains(line, "{")) {
+                
+                if (this.StringContains(line, "state_check")) {
                     statecheck = true;
                 }
-                else if (line.indexOf("disk_check") != -1 || line.indexOf("auto_archive") != -1) {
+                else if (this.StringContains(line, "disk_check") || this.StringContains(line, "auto_archive")) {
                     //Nothing really
                 }
                 else {
@@ -38,8 +37,8 @@
                 }
                 continue;
             }
-
-            if (line.indexOf("<") != -1 && line.indexOf(">") != -1) {
+            
+            if (this.StringContains(line, "<") && this.StringContains(line, ">")) {
                 let field = line.split(RegExp("<"))[0].trim();
                 let value = line.split(RegExp("<"))[1].trim();
 
@@ -47,7 +46,7 @@
                 value = value.replace("\>", "");
 
 
-                if (statecheck && field.indexOf("enable") != -1) {
+                if (statecheck && this.StringContains(field, "enable")) {
                     field = "enableStatecheck";
                 }
                 rule.set(field, value);
@@ -55,12 +54,11 @@
 
             //If line has a closing bracket it means closing of a rule. If it is a second closing bracket it means we have left disk_check, end function and return list.
             //Else add current rule to List, create a new one and start over.
-            if (line.indexOf("}") != -1) {
+            if (this.StringContains(line, "}")) {
                 if (statecheck) {
                     statecheck = false;
                     continue;
                 }
-                //if (rule.name != null && ruleNames.indexOf(rule.name) == -1) {
                 if (rule.name != null && counter > ruleList.length) {
                     ruleList.push(rule);
                     ruleNames.push(rule.name);
@@ -68,5 +66,9 @@
             }
         }
         return ruleList;
+    }
+
+    StringContains(input: string, find: string): boolean {
+        return (input.indexOf(find) != -1);
     }
 }

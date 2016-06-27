@@ -25,11 +25,11 @@ var AutofilerParser = (function () {
             if (line[0] == '#') {
                 continue;
             }
-            if (line.indexOf("{") != -1) {
-                if (line.indexOf("state_check") != -1) {
+            if (this.StringContains(line, "{")) {
+                if (this.StringContains(line, "state_check")) {
                     statecheck = true;
                 }
-                else if (line.indexOf("disk_check") != -1 || line.indexOf("auto_archive") != -1) {
+                else if (this.StringContains(line, "disk_check") || this.StringContains(line, "auto_archive")) {
                 }
                 else {
                     var value = line.split("{")[0].trim();
@@ -40,17 +40,17 @@ var AutofilerParser = (function () {
                 }
                 continue;
             }
-            if (line.indexOf("<") != -1 && line.indexOf(">") != -1) {
+            if (this.StringContains(line, "<") && this.StringContains(line, ">")) {
                 var field = line.split(RegExp("<"))[0].trim();
                 var value = line.split(RegExp("<"))[1].trim();
                 field = field.replace("\>", "");
                 value = value.replace("\>", "");
-                if (statecheck && field.indexOf("enable") != -1) {
+                if (statecheck && this.StringContains(field, "enable")) {
                     field = "enableStatecheck";
                 }
                 rule.set(field, value);
             }
-            if (line.indexOf("}") != -1) {
+            if (this.StringContains(line, "}")) {
                 if (statecheck) {
                     statecheck = false;
                     continue;
@@ -62,6 +62,9 @@ var AutofilerParser = (function () {
             }
         }
         return ruleList;
+    };
+    AutofilerParser.prototype.StringContains = function (input, find) {
+        return (input.indexOf(find) != -1);
     };
     return AutofilerParser;
 }());
