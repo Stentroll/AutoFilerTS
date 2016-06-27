@@ -5,7 +5,7 @@ var AutofilerRule = (function () {
         this.purgeTimeoutSec = -1;
         this.purgeTimeoutDays = -1;
         this.basefolderCount = 0;
-        this.basefolders = [];
+        this.basefolders = null;
         this.archival = "";
         this.upperLimit = -1;
         this.lowerLimit = -1;
@@ -21,7 +21,7 @@ var AutofilerRule = (function () {
         this.minimum = "";
         this.id = id;
     }
-    AutofilerRule.prototype.set = function (field, value) {
+    AutofilerRule.prototype.Set = function (field, value) {
         if (field === "interval") {
             this.interval = value;
         }
@@ -50,13 +50,18 @@ var AutofilerRule = (function () {
             this.upperLimit = Number(value);
         }
         else if ((field === "base_folder_ids")) {
-            try {
-                value = value.trim();
-                var temp = value.split(" ").map(Number);
-                this.basefolders = temp;
+            if (this.basefolders === null) {
+                try {
+                    value = value.trim();
+                    var temp = value.split(" ").map(Number);
+                    this.basefolders = temp;
+                }
+                catch (Exception) {
+                    this.basefolders = [];
+                }
             }
-            catch (Exception) {
-                this.basefolders = [];
+            else {
+                return false;
             }
             this.basefolderCount = this.basefolders.length;
         }
@@ -79,6 +84,7 @@ var AutofilerRule = (function () {
         else if ((field === "minimum")) {
             this.minimum = value;
         }
+        return true;
     };
     AutofilerRule.prototype.SayHello = function () {
         console.log("Hello! I am rule " + this.name);
@@ -94,8 +100,13 @@ var AutofilerRule = (function () {
             }
             else {
                 if (property == "basefolders") {
-                    var temp = this[property];
-                    cell.innerHTML = temp.join(", ");
+                    if (this.basefolders !== null) {
+                        var temp = this[property];
+                        cell.innerHTML = temp.join(", ");
+                    }
+                    else {
+                        cell.innerHTML = "";
+                    }
                 }
                 else {
                     cell.innerHTML = this[property];

@@ -5,6 +5,7 @@ var AutofilerParser = (function () {
         var lines = cfgText.split("\n");
         var ruleNames = [];
         var counter = 0;
+        var defaultBFsString = null;
         var ruleList = [];
         if (cfgText == "") {
             return;
@@ -48,7 +49,11 @@ var AutofilerParser = (function () {
                 if (statecheck && this.StringContains(field, "enable")) {
                     field = "enableStatecheck";
                 }
-                rule.set(field, value);
+                var result = rule.Set(field, value);
+                if (!result) {
+                    defaultBFsString = value;
+                    console.log("Orphaned BFs: " + value);
+                }
             }
             if (this.StringContains(line, "}")) {
                 if (statecheck) {
@@ -58,6 +63,16 @@ var AutofilerParser = (function () {
                 if (rule.name != null && counter > ruleList.length) {
                     ruleList.push(rule);
                     ruleNames.push(rule.name);
+                }
+            }
+        }
+        console.log(defaultBFsString);
+        if (defaultBFsString !== null) {
+            for (var ruleRef in ruleList) {
+                if (ruleList[ruleRef].basefolders === null) {
+                    console.log("Setting default BFs on:");
+                    console.log(ruleList[ruleRef]);
+                    ruleList[ruleRef].Set("base_folder_ids", defaultBFsString);
                 }
             }
         }

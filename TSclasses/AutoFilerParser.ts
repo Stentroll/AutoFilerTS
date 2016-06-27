@@ -4,6 +4,7 @@
         let lines = cfgText.split("\n");
         let ruleNames: string[] = [];
         let counter: number = 0;
+        let defaultBFsString: string = null;
 
         let ruleList: AutofilerRule[] = [];
 
@@ -49,9 +50,15 @@
                 if (statecheck && this.StringContains(field, "enable")) {
                     field = "enableStatecheck";
                 }
-                rule.set(field, value);
-            }
 
+                var result:boolean = rule.Set(field, value);
+
+                if (!result) {
+                    defaultBFsString = value;
+                    console.log("Orphaned BFs: " + value);
+                }
+            }
+            
             //If line has a closing bracket it means closing of a rule. If it is a second closing bracket it means we have left disk_check, end function and return list.
             //Else add current rule to List, create a new one and start over.
             if (this.StringContains(line, "}")) {
@@ -59,12 +66,24 @@
                     statecheck = false;
                     continue;
                 }
+
                 if (rule.name != null && counter > ruleList.length) {
                     ruleList.push(rule);
                     ruleNames.push(rule.name);
                 }
             }
         }
+        console.log(defaultBFsString);
+        if (defaultBFsString !== null) {
+            for (var ruleRef in ruleList) {
+                if (ruleList[ruleRef].basefolders === null) {
+                    console.log("Setting default BFs on:");
+                    console.log(ruleList[ruleRef]);
+                    ruleList[ruleRef].Set("base_folder_ids", defaultBFsString);
+                }
+            }
+        }
+
         return ruleList;
     }
 

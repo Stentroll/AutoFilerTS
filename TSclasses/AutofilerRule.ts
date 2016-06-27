@@ -4,7 +4,7 @@
     purgeTimeoutSec: number = -1;
     purgeTimeoutDays: number = -1;
     basefolderCount: number = 0;
-    basefolders: number[] = [];
+    basefolders: number[] = null;
     archival: string = "";
     upperLimit: number = -1;
     lowerLimit: number = -1;
@@ -24,7 +24,7 @@
         this.id = id;
     }
 
-    set(field: string, value: string) : void {
+    Set(field: string, value: string) : boolean {
 
         if (field === "interval") {
             this.interval = value;
@@ -54,13 +54,18 @@
             this.upperLimit = Number(value);
         }
         else if ((field === "base_folder_ids")) {
-            try {
-                value = value.trim();
-                let temp = value.split(" ").map(Number);
-                this.basefolders = temp;
+            if (this.basefolders === null) {
+                try {
+                    value = value.trim();
+                    let temp = value.split(" ").map(Number);
+                    this.basefolders = temp;
+                }
+                catch (Exception) {
+                    this.basefolders = [];
+                }
             }
-            catch (Exception) {
-                this.basefolders = [];
+            else {
+                return false;
             }
             this.basefolderCount = this.basefolders.length;
         }
@@ -85,6 +90,7 @@
         else if ((field === "minimum")) {
             this.minimum = value;
         }
+        return true;
     }
 
     public SayHello() : void {
@@ -110,8 +116,13 @@
             else {
                 //Special case to set basefolder array separators
                 if (property == "basefolders") {
-                    let temp: string[] = this[property];
-                    cell.innerHTML = temp.join(", ");
+                    if (this.basefolders !== null) {
+                        let temp: string[] = this[property];
+                        cell.innerHTML = temp.join(", ");
+                    }
+                    else {
+                        cell.innerHTML = "";
+                    }
                 }
                 else
                 {
