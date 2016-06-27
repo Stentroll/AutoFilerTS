@@ -4,6 +4,7 @@ body {
     background-color: #222;
     color: #ddd;
     overflow-y: scroll;
+    padding: 20px;
 }
 
 h1, h2 {
@@ -21,12 +22,7 @@ input {
     color: black;
 }
 
-.filterlabel {
-    color: #fff;
-    font-weight: 400;
-    color: #ddddee;
-    font-style: normal;
-}
+
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
   background-color: #334;
@@ -88,7 +84,7 @@ thead tr:hover {}
 
 #filters label {
     float: left;
-    width: 70%;
+    /*width: 70%;*/
     margin-right: 10px;
     vertical-align: central;
 }
@@ -101,6 +97,14 @@ thead tr:hover {}
 
 #filters #cbHideDisabled {
     height: 16px;
+}
+
+.filterlabel {
+    color: #fff;
+    font-weight: 400;
+    color: #ddddee;
+    font-style: normal;
+    width: auto;
 }
 
 #fieldSelectors {
