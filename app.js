@@ -6,10 +6,14 @@ var AFview = true;
 var txtFilterId;
 var txtFilterName;
 var cbHideDisabled;
+var txtDays;
+var txtSeconds;
 window.onload = function () {
     txtFilterId = document.getElementById('txtFilterId');
     txtFilterName = document.getElementById('txtFilterName');
     cbHideDisabled = document.getElementById('cbHideDisabled');
+    txtSeconds = document.getElementById('txtSeconds');
+    txtDays = document.getElementById('txtDays');
     var btnClearFilters = document.getElementById('ButtonClearFilters');
     var btnCheckShowAll = document.getElementById("btnCheckShowAll");
     var btnCheckHideAll = document.getElementById("btnCheckHideAll");
@@ -25,10 +29,25 @@ window.onload = function () {
     btnParseBF.onclick = function () { return ParseBFConfig(); };
     btnSwitchTable.onclick = function () { return SwitchTable(); };
     btnLoadTestData.onclick = function () { return PopulateTextArea(); };
+    txtDays.onkeyup = function () { return UpdateCalculator(txtDays); };
+    txtSeconds.onkeyup = function () { return UpdateCalculator(txtSeconds); };
+    txtDays.onclick = function () { return txtDays.select(); };
+    txtSeconds.onclick = function () { return txtSeconds.select(); };
     txtFilterId.onkeyup = function () { BuildAFTable(); BuildBFTable(); };
     txtFilterName.onkeyup = function () { BuildAFTable(); BuildBFTable(); };
     cbHideDisabled.onchange = function () { BuildAFTable(); BuildBFTable(); };
 };
+function UpdateCalculator(input) {
+    console.log(input);
+    if (input.id === "txtSeconds") {
+        var val = input.value / (24 * 60 * 60);
+        txtDays.value = val.toString();
+    }
+    else if (input.id === "txtDays") {
+        var val = input.value * 24 * 60 * 60;
+        txtSeconds.value = val.toString();
+    }
+}
 function ShowHideAllColumns(show) {
     var checkboxElementArray = document.getElementsByClassName("fieldcheck");
     for (var n = 0; n < checkboxElementArray.length; n++) {

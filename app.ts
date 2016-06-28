@@ -15,6 +15,8 @@ var AFview: boolean = true;
 var txtFilterId: HTMLInputElement;
 var txtFilterName: HTMLInputElement;
 var cbHideDisabled: HTMLInputElement;
+var txtDays: HTMLInputElement;
+var txtSeconds: HTMLInputElement;
 
 declare var sorttable: any;
 
@@ -24,6 +26,8 @@ window.onload = () => {
     txtFilterId = <HTMLInputElement> document.getElementById('txtFilterId');
     txtFilterName = <HTMLInputElement> document.getElementById('txtFilterName');
     cbHideDisabled = <HTMLInputElement> document.getElementById('cbHideDisabled');
+    txtSeconds = <HTMLInputElement>document.getElementById('txtSeconds');
+    txtDays = <HTMLInputElement>document.getElementById('txtDays');
     var btnClearFilters: HTMLButtonElement = <HTMLButtonElement>document.getElementById('ButtonClearFilters');
     var btnCheckShowAll: HTMLInputElement = <HTMLInputElement>document.getElementById("btnCheckShowAll");
     var btnCheckHideAll: HTMLInputElement = <HTMLInputElement>document.getElementById("btnCheckHideAll");
@@ -47,10 +51,27 @@ window.onload = () => {
     btnSwitchTable.onclick = () => SwitchTable();
     btnLoadTestData.onclick = () => PopulateTextArea();
 
+    txtDays.onkeyup = () => UpdateCalculator(txtDays);
+    txtSeconds.onkeyup = () => UpdateCalculator(txtSeconds);
+    txtDays.onclick = () => txtDays.select();
+    txtSeconds.onclick = () => txtSeconds.select();
+
     txtFilterId.onkeyup = () => { BuildAFTable(); BuildBFTable(); };
     txtFilterName.onkeyup = () => { BuildAFTable(); BuildBFTable();  };
     cbHideDisabled.onchange = () => { BuildAFTable(); BuildBFTable(); };
 };
+
+function UpdateCalculator(input) {
+    console.log(input);
+    if (input.id === "txtSeconds") {
+        var val = input.value / (24 * 60 * 60);
+        txtDays.value = val.toString();
+    }
+    else if (input.id === "txtDays") {
+        var val = input.value * 24 * 60 * 60;
+        txtSeconds.value = val.toString();
+    }
+}
 
 function ShowHideAllColumns(show: boolean): void {
     var checkboxElementArray = document.getElementsByClassName("fieldcheck");

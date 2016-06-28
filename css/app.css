@@ -22,7 +22,13 @@ input {
     color: black;
 }
 
+.calculator label {
+    width: 70px;
+}
 
+.calculator input {
+    width: 100px;
+}
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
   background-color: #334;
