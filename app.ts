@@ -62,13 +62,12 @@ window.onload = () => {
 };
 
 function UpdateCalculator(input) {
-    console.log(input);
     if (input.id === "txtSeconds") {
-        var val = input.value / (24 * 60 * 60);
-        txtDays.value = val.toString();
+        var val: number = input.value / (24 * 60 * 60);
+        txtDays.value = val.toFixed(3).toString();
     }
     else if (input.id === "txtDays") {
-        var val = input.value * 24 * 60 * 60;
+        var val:number = input.value * 24 * 60 * 60;
         txtSeconds.value = val.toString();
     }
 }

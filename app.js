@@ -38,10 +38,9 @@ window.onload = function () {
     cbHideDisabled.onchange = function () { BuildAFTable(); BuildBFTable(); };
 };
 function UpdateCalculator(input) {
-    console.log(input);
     if (input.id === "txtSeconds") {
         var val = input.value / (24 * 60 * 60);
-        txtDays.value = val.toString();
+        txtDays.value = val.toFixed(3).toString();
     }
     else if (input.id === "txtDays") {
         var val = input.value * 24 * 60 * 60;
