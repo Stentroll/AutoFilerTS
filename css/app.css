@@ -17,8 +17,9 @@ input {
     width: 40px;
 }
 
-button {
+.btn {
     color: black;
+    
 }
 
 /*Class styles*/
