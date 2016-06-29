@@ -28,50 +28,52 @@
     <link rel="stylesheet" href="css/app.css" type="text/css" />
 
 </head>
-    <body>
-        <h1>AF Config Parser - 1.2</h1>
-        <button class="btn btn-secondary" style="margin-bottom:20px;" id="btnLoadTestData">Load test data</button>
-        
-        <div id="inputContainer">
-            <div id="textAreaDiv">
-                <div id="ruleAreaDiv">
-                    <textarea class="form-control" id="ruletextarea" spellcheck="false" placeholder="Enter Autofiler.def here..."></textarea>
-                    <button class="btn btn-secondary" id="btnParseAF">Parse Autofiler config</button>
-                    <h2 id="h2RuleCount"></h2>
+<body>
+    <h1>AF Config Parser - 1.2</h1>
+    <button class="btn btn-secondary" style="margin-bottom:20px;" id="btnLoadTestData">Load test data</button>
 
-                </div>
-                <div id="bfAreaDiv">
-                    <textarea class="form-control" id="bftextarea" spellcheck="false" placeholder="Enter basefolder dump here..."></textarea>
-                    <button class="btn btn-secondary" id="btnParseBF">Parse Basefolder dump</button>
-                    <h2 id="h2BfCount"></h2>
-                </div>
+    <div id="inputContainer">
+        <div id="textAreaDiv">
+            <div id="ruleAreaDiv">
+                <textarea class="form-control" id="ruletextarea" spellcheck="false" placeholder="Enter Autofiler.def here..."></textarea>
+                <button class="btn btn-secondary" id="btnParseAF">Parse Autofiler config</button>
+                <h2 id="h2RuleCount"></h2>
+
             </div>
+            <div id="bfAreaDiv">
+                <textarea class="form-control" id="bftextarea" spellcheck="false" placeholder="Enter basefolder dump here..."></textarea>
+                <button class="btn btn-secondary" id="btnParseBF">Parse Basefolder dump</button>
+                <h2 id="h2BfCount"></h2>
+            </div>
+        </div>
 
-            <div class="panel-group" id="accordion">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                                Filter Controls
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapse1" class="panel-collapse collapse">
-                        <div class="panel-body">
-                            <div id="filters" class="panel-collapse collapse in">
-                                <div>
-                                    <label class="filterlabel">Basefolder ID: </label>
-                                    <input class="filterInput" type="text" id="txtFilterId" />
-                                </div>
-                                <div>
-                                    <label class="filterlabel">Rule name: </label>
-                                    <input class="filterInput" type="text" id="txtFilterName" />
-                                </div>
-                                <div>
-                                    <label class="filterlabel">Hide Disabled Rules: </label>
-                                    <input class="filterInput" type="checkbox" id="cbHideDisabled" />
-                                </div>
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                            Filter Controls
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div id="filters" class="panel-collapse collapse in">
+                            <div>
+                                <label class="filterlabel">Basefolder ID: </label>
+                                <input class="filterInput" type="text" id="txtFilterId" />
+                            </div>
+                            <div>
+                                <label class="filterlabel">Rule name: </label>
+                                <input class="filterInput" type="text" id="txtFilterName" />
+                            </div>
+                            <div>
+                                <label class="filterlabel">Hide Disabled: </label>
+                                <input class="filterInput" type="checkbox" id="cbHideDisabled" />
+                            </div>
+                            <div>
                                 <button class="btn btn-secondary" id="ButtonClearFilters">Clear filters</button>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -113,7 +115,7 @@
                                 </div>
                                 <div>
                                     <label class="">Days: </label>
-                                    <input class="" type="text" id="txtDays" value="0"/>
+                                    <input class="" type="text" id="txtDays" value="0" />
                                 </div>
                             </div>
                             <div id="bork" class="panel-collapse collapse in">

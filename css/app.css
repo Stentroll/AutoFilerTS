@@ -87,19 +87,20 @@ thead tr:hover {}
 #filters div {
     float: left;
     width: 25%;
-    padding: 10px;
+    clear:both;
 }
 
 #filters label {
-    float: left;
-    /*width: 70%;*/
-    margin-right: 10px;
+    /*float: left;*/
+    width: 100px;
+    /*margin-right: 10px;*/
     vertical-align: central;
+    
 }
 
 #filters input {
     height: 24px;
-    width: 40px;
+    width: 100px;
 }
 
 #filters #cbHideDisabled {
