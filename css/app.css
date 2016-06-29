@@ -18,16 +18,13 @@ input {
 }
 
 /*Class styles*/
-.btn {
-    color: black;
-}
-
 .calculator label {
     width: 70px;
 }
 
 .calculator input {
     width: 100px;
+    padding-left: 5px;
 }
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
@@ -98,16 +95,15 @@ thead tr:hover {}
 #filters input {
     height: 24px;
     width: 40px;
-    color: #000;
 }
 
 #filters #cbHideDisabled {
     height: 16px;
 }
 
-.filterlabel {
+#fieldselectors label {
     color: #fff;
-    font-weight: 400;
+    font-weight: 100;
     color: #ddddee;
     font-style: normal;
     width: auto;
@@ -124,12 +120,7 @@ thead tr:hover {}
     width: 20%;
     clear: none;
     margin-right: 5%;
-    height: auto;
     height: inherit;
-}
-
-#collapse2 {
-    height: auto;
 }
 
 #fieldSelectors div:hover {
@@ -187,7 +178,7 @@ thead tr:hover {}
 #inputContainer {
     width: 100%;
     clear: both;
-    height: 320px;
+    height: 340px;
 }
 
 #btnSwitchTable { 
