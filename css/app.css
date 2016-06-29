@@ -17,6 +17,10 @@ input {
     width: 40px;
 }
 
+button {
+    color: black;
+}
+
 /*Class styles*/
 .calculator label {
     width: 70px;
