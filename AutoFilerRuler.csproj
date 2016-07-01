@@ -41,6 +41,7 @@
     <Content Include="Scripts\typings\jquery\jquery.d.ts" />
     <Content Include="TSclasses\Basefolder.js" />
     <Content Include="TSclasses\BasefolderParser.js" />
+    <Content Include="TSclasses\DaySecCalculator.js" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +49,7 @@
     <TypeScriptCompile Include="TSclasses\AutofilerParser.ts" />
     <TypeScriptCompile Include="TSclasses\Basefolder.ts" />
     <TypeScriptCompile Include="TSclasses\BasefolderParser.ts" />
+    <TypeScriptCompile Include="TSclasses\DaySecCalculator.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

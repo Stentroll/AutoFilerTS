@@ -24,12 +24,13 @@
     <script src="TSclasses/Basefolder.js"></script>
     <script src="TSclasses/AutoFilerParser.js"></script>
     <script src="TSclasses/BasefolderParser.js"></script>
+    <script src="TSclasses/DaySecCalculator.js"></script>
     <script src="app.js"></script>
     <link rel="stylesheet" href="css/app.css" type="text/css" />
 
 </head>
 <body>
-    <h1>AF Config Parser - 1.2</h1>
+    <h1>AF Config Parser - 1.3</h1>
     <button class="btn btn-secondary" style="margin-bottom:20px;" id="btnLoadTestData">Load test data</button>
 
     <div id="inputContainer">
@@ -38,8 +39,8 @@
                 <textarea class="form-control" id="ruletextarea" spellcheck="false" placeholder="Enter Autofiler.def here..."></textarea>
                 <button class="btn btn-secondary" id="btnParseAF">Parse Autofiler config</button>
                 <h2 id="h2RuleCount"></h2>
-
             </div>
+
             <div id="bfAreaDiv">
                 <textarea class="form-control" id="bftextarea" spellcheck="false" placeholder="Enter basefolder dump here..."></textarea>
                 <button class="btn btn-secondary" id="btnParseBF">Parse Basefolder dump</button>
@@ -91,13 +92,13 @@
                             <div>
                                 <button class="btn btn-secondary" id="btnCheckShowAll">Show All</button>
                                 <button class="btn btn-secondary" id="btnCheckHideAll">Hide All</button>
+                                <button class="btn btn-secondary" id="btnCheckHideMulti">Show/hide multiline fields</button>
                             </div>
                             <div id="fieldSelectors" class="panel-collapse collapse in">
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
@@ -107,31 +108,15 @@
                         </h4>
                     </div>
                     <div id="collapse3" class="panel-collapse collapse calculator">
-                        <div class="panel-body">
-                            <div>
-                                <div>
-                                    <label class="">Seconds:</label>
-                                    <input class="" type="text" id="txtSeconds" value="0" />
-                                </div>
-                                <div>
-                                    <label class="">Days: </label>
-                                    <input class="" type="text" id="txtDays" value="0" />
-                                </div>
-                            </div>
-                            <div id="bork" class="panel-collapse collapse in">
-                            </div>
+                        <div id="calcDiv" class="panel-body">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <button class="btn btn-secondary" id="btnSwitchTable">Go to basefolder view</button>
-
-
         <div id="tablediv">
             <div id="af-table-div" class="bootstrap-table">
-                <!--<table id="AFtable" data-toggle="table" data-search="true" data-show-columns="true" data-show-multi-sort="true" data-pagination="true" data-page-size="50" data-show-refresh="true" data-show-export="true">
-                </table>-->
                 <table id="AFtable"></table>
             </div>
             <div id="bf-table-div" class="bootstrap-table" hidden="hidden">

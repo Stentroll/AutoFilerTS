@@ -6,6 +6,8 @@ var AutofilerRule = (function () {
         this.purgeTimeoutDays = -1;
         this.basefolderCount = 0;
         this.basefolders = null;
+        this.basefolderNames = null;
+        this.basefolderLocations = null;
         this.archival = "";
         this.upperLimit = -1;
         this.lowerLimit = -1;
@@ -99,13 +101,35 @@ var AutofilerRule = (function () {
                 cell.innerHTML = "";
             }
             else {
-                if (property == "basefolders") {
+                if (property === "basefolders") {
                     if (this.basefolders !== null) {
                         var temp = this[property];
                         cell.innerHTML = temp.join(", ");
                     }
                     else {
                         cell.innerHTML = "";
+                    }
+                }
+                else if (property === "basefolderNames") {
+                    for (var ref in this.basefolders) {
+                        var bf = bfList.filter(FilterBFonBFId, Number(this.basefolders[ref]))[0];
+                        if (bf != null) {
+                            cell.innerHTML += bf.name + "<br/>";
+                        }
+                        else {
+                            cell.innerHTML += "";
+                        }
+                    }
+                }
+                else if (property === "basefolderLocations") {
+                    for (var ref in this.basefolders) {
+                        var bf = bfList.filter(FilterBFonBFId, Number(this.basefolders[ref]))[0];
+                        if (bf != null) {
+                            cell.innerHTML += bf.location + "<br/>";
+                        }
+                        else {
+                            cell.innerHTML += "";
+                        }
                     }
                 }
                 else {

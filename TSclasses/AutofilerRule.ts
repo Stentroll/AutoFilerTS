@@ -5,6 +5,8 @@
     purgeTimeoutDays: number = -1;
     basefolderCount: number = 0;
     basefolders: number[] = null;
+    basefolderNames: string[] = null;
+    basefolderLocations: string[] = null;
     archival: string = "";
     upperLimit: number = -1;
     lowerLimit: number = -1;
@@ -100,7 +102,6 @@
     public CreateTableRow(): HTMLTableRowElement {
         //Get member variables of this class
         let memVars = Object.getOwnPropertyNames(this);
-        //console.log(memVars);
         //Create a blank table row
         let row: HTMLTableRowElement = document.createElement('tr');
 
@@ -115,13 +116,35 @@
             }
             else {
                 //Special case to set basefolder array separators
-                if (property == "basefolders") {
+                if (property === "basefolders") {
                     if (this.basefolders !== null) {
                         let temp: string[] = this[property];
                         cell.innerHTML = temp.join(", ");
                     }
                     else {
                         cell.innerHTML = "";
+                    }
+                }
+                else if (property === "basefolderNames") {
+                    for (var ref in this.basefolders) {
+                        var bf: Basefolder = bfList.filter(FilterBFonBFId, Number(this.basefolders[ref]))[0];
+                        if (bf != null) {
+                            cell.innerHTML += bf.name + "<br/>";
+                        }
+                        else {
+                            cell.innerHTML += "";
+                        }
+                    }
+                }
+                else if (property === "basefolderLocations") {
+                    for (var ref in this.basefolders) {
+                        var bf: Basefolder = bfList.filter(FilterBFonBFId, Number(this.basefolders[ref]))[0];
+                        if (bf != null) {
+                            cell.innerHTML += bf.location + "<br/>";
+                        }
+                        else {
+                            cell.innerHTML += "";
+                        }
                     }
                 }
                 else
