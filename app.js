@@ -196,6 +196,13 @@ function BuildAFTable() {
         }
         tbody.appendChild(row);
     }
+    if (!('remove' in Element.prototype)) {
+        Element.prototype.remove = function () {
+            if (this.parentNode) {
+                this.parentNode.removeChild(this);
+            }
+        };
+    }
     tbl.remove();
     afTableDiv.appendChild(newTable);
     sorttable.makeSortable(newTable);
