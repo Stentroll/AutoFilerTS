@@ -258,16 +258,9 @@ function BuildAFTable(): void {
         tbody.appendChild(row);
     }
 
-    // Create remove function if not exist
-    if (!('remove' in Element.prototype)) {
-        Element.prototype.remove = function () {
-            if (this.parentNode) {
-                this.parentNode.removeChild(this);
-            }
-        };
-    }
 
-    tbl.remove();
+    //tbl.remove();
+    tbl.parentNode.removeChild(tbl);
     afTableDiv.appendChild(newTable);
 
     sorttable.makeSortable(newTable);
