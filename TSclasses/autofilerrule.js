@@ -5,8 +5,8 @@ var AutofilerRule = (function () {
         this.purgeTimeoutSec = -1;
         this.purgeTimeoutDays = -1;
         this.basefolderCount = 0;
-        this.basefolders = null;
-        this.basefolderNames = null;
+        this.basefolder_ids = null;
+        this.basefolders = [];
         this.basefolderLocations = null;
         this.archival = "";
         this.upperLimit = -1;
@@ -52,20 +52,20 @@ var AutofilerRule = (function () {
             this.upperLimit = Number(value);
         }
         else if ((field === "base_folder_ids")) {
-            if (this.basefolders === null) {
+            if (this.basefolder_ids == null) {
                 try {
                     value = value.trim();
                     var temp = value.split(" ").map(Number);
-                    this.basefolders = temp;
+                    this.basefolder_ids = temp;
                 }
                 catch (Exception) {
-                    this.basefolders = [];
+                    this.basefolder_ids = [];
                 }
             }
             else {
                 return false;
             }
-            this.basefolderCount = this.basefolders.length;
+            this.basefolderCount = this.basefolder_ids.length;
         }
         else if ((field === "arch_timeout")) {
             this.archTimeout = Number(value);
@@ -88,9 +88,6 @@ var AutofilerRule = (function () {
         }
         return true;
     };
-    AutofilerRule.prototype.SayHello = function () {
-        console.log("Hello! I am rule " + this.name);
-    };
     AutofilerRule.prototype.CreateTableRow = function () {
         var memVars = Object.getOwnPropertyNames(this);
         var row = document.createElement('tr');
@@ -101,8 +98,8 @@ var AutofilerRule = (function () {
                 cell.innerHTML = "";
             }
             else {
-                if (property === "basefolders") {
-                    if (this.basefolders !== null) {
+                if (property === "basefolder_ids") {
+                    if (this.basefolder_ids !== null) {
                         var temp = this[property];
                         cell.innerHTML = temp.join(", ");
                     }
@@ -110,9 +107,9 @@ var AutofilerRule = (function () {
                         cell.innerHTML = "";
                     }
                 }
-                else if (property === "basefolderNames") {
+                else if (property === "basefolders") {
                     for (var ref in this.basefolders) {
-                        var bf = bfList.filter(FilterBFonBFId, Number(this.basefolders[ref]))[0];
+                        var bf = this.basefolders[ref];
                         if (bf != null) {
                             cell.innerHTML += bf.name + "<br/>";
                         }
@@ -123,7 +120,7 @@ var AutofilerRule = (function () {
                 }
                 else if (property === "basefolderLocations") {
                     for (var ref in this.basefolders) {
-                        var bf = bfList.filter(FilterBFonBFId, Number(this.basefolders[ref]))[0];
+                        var bf = this.basefolders[ref];
                         if (bf != null) {
                             cell.innerHTML += bf.location + "<br/>";
                         }
@@ -138,6 +135,47 @@ var AutofilerRule = (function () {
             }
         }
         return row;
+    };
+    AutofilerRule.prototype.ToCsvRow = function () {
+        var memVars = Object.getOwnPropertyNames(this);
+        var rowString = "";
+        for (var propRef in memVars) {
+            var value = "";
+            var property = memVars[+propRef];
+            if (this[property] == -1) {
+                value = "";
+            }
+            else {
+                if (property === "basefolder_ids") {
+                    if (this.basefolder_ids !== null) {
+                        var temp = this[property];
+                        value = temp.join(" ");
+                    }
+                    else {
+                        value = "";
+                    }
+                }
+                else if (property === "basefolders") {
+                    for (var ref in this.basefolders) {
+                        var bf = this.basefolders[ref];
+                        if (bf != null) {
+                            value += bf.name + " ";
+                        }
+                        else {
+                            value += "";
+                        }
+                    }
+                }
+                else if (property === "basefolderLocations") {
+                    value = "";
+                }
+                else {
+                    value = this[property];
+                }
+            }
+            rowString += value + ",";
+        }
+        return rowString + "\n";
     };
     return AutofilerRule;
 }());

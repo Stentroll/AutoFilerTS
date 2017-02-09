@@ -4,8 +4,8 @@
     purgeTimeoutSec: number = -1;
     purgeTimeoutDays: number = -1;
     basefolderCount: number = 0;
-    basefolders: number[] = null;
-    basefolderNames: string[] = null;
+    basefolder_ids: number[] = null;
+    basefolders: Basefolder [] = [];
     basefolderLocations: string[] = null;
     archival: string = "";
     upperLimit: number = -1;
@@ -56,20 +56,20 @@
             this.upperLimit = Number(value);
         }
         else if ((field === "base_folder_ids")) {
-            if (this.basefolders === null) {
+            if (this.basefolder_ids == null) {
                 try {
                     value = value.trim();
                     let temp = value.split(" ").map(Number);
-                    this.basefolders = temp;
+                    this.basefolder_ids = temp;
                 }
                 catch (Exception) {
-                    this.basefolders = [];
+                    this.basefolder_ids = [];
                 }
             }
             else {
                 return false;
             }
-            this.basefolderCount = this.basefolders.length;
+            this.basefolderCount = this.basefolder_ids.length;
         }
 
         //auto_archive rules
@@ -95,10 +95,6 @@
         return true;
     }
 
-    public SayHello() : void {
-        console.log("Hello! I am rule " + this.name);
-    }
-
     public CreateTableRow(): HTMLTableRowElement {
         //Get member variables of this class
         let memVars = Object.getOwnPropertyNames(this);
@@ -116,8 +112,8 @@
             }
             else {
                 //Special case to set basefolder array separators
-                if (property === "basefolders") {
-                    if (this.basefolders !== null) {
+                if (property === "basefolder_ids") {
+                    if (this.basefolder_ids !== null) {
                         let temp: string[] = this[property];
                         cell.innerHTML = temp.join(", ");
                     }
@@ -125,9 +121,9 @@
                         cell.innerHTML = "";
                     }
                 }
-                else if (property === "basefolderNames") {
+                else if (property === "basefolders") {
                     for (var ref in this.basefolders) {
-                        var bf: Basefolder = bfList.filter(FilterBFonBFId, Number(this.basefolders[ref]))[0];
+                        var bf: Basefolder = this.basefolders[ref];
                         if (bf != null) {
                             cell.innerHTML += bf.name + "<br/>";
                         }
@@ -138,7 +134,7 @@
                 }
                 else if (property === "basefolderLocations") {
                     for (var ref in this.basefolders) {
-                        var bf: Basefolder = bfList.filter(FilterBFonBFId, Number(this.basefolders[ref]))[0];
+                        var bf: Basefolder = this.basefolders[ref];
                         if (bf != null) {
                             cell.innerHTML += bf.location + "<br/>";
                         }
@@ -154,5 +150,66 @@
             }
         }
         return row;
+    }
+
+
+
+    public ToCsvRow(): string {
+        //Get member variables of this class
+        let memVars = Object.getOwnPropertyNames(this);
+
+        let rowString = "";
+
+        //For each variable add a new cell
+        for (let propRef in memVars) {
+            let value = "";
+
+            let property = memVars[+propRef];
+
+            //If value was not set leave blank, temp workaround?
+            if (this[property] == -1) {
+                value = "";
+            }
+            else {
+                //Special case to set basefolder array separators
+                if (property === "basefolder_ids") {
+                    if (this.basefolder_ids !== null) {
+                        let temp: string[] = this[property];
+                        value = temp.join(" ");
+                    }
+                    else {
+                        value = "";
+                    }
+                }
+                else if (property === "basefolders") {
+                    for (var ref in this.basefolders) {
+                        var bf: Basefolder = this.basefolders[ref];
+                        if (bf != null) {
+                            value += bf.name + " ";
+                        }
+                        else {
+                            value += "";
+                        }
+                    }
+                }
+                else if (property === "basefolderLocations") {
+                    value = "";
+                    //for (var ref in this.basefolders) {
+                    //    var bf: Basefolder = this.basefolders[ref];
+                    //    if (bf != null) {
+                    //        cell.innerHTML += bf.location + "<br/>";
+                    //    }
+                    //    else {
+                    //        cell.innerHTML += "";
+                    //    }
+                    //}
+                }
+                else {
+                    value = this[property];
+                }
+            }
+            rowString += value + ",";
+        }
+        return rowString + "\n";
     }
 }

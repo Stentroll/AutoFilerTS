@@ -39,8 +39,6 @@
         if (typeof bf != 'undefined') {
             bfList.push(bf);
         }
-
-        console.log("Basefolders found:" + bfList.length);
         return bfList;
     }
 

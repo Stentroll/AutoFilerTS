@@ -18,8 +18,10 @@ var btnCheckHideAll;
 var btnCheckHideMulti;
 var btnParseAF;
 var btnParseBF;
-var btnLoadTestData;
+var btnSaveAF;
+var btnSaveBF;
 var calcDiv;
+var configSelector;
 window.onload = function () {
     afTableDiv = document.getElementById("af-table-div");
     bfTableDiv = document.getElementById("bf-table-div");
@@ -28,15 +30,18 @@ window.onload = function () {
     btnCheckHideMulti = document.getElementById("btnCheckHideMulti");
     btnCheckShowAll = document.getElementById("btnCheckShowAll");
     btnClearFilters = document.getElementById('ButtonClearFilters');
-    btnLoadTestData = document.getElementById('btnLoadTestData');
     btnParseAF = document.getElementById('btnParseAF');
     btnParseBF = document.getElementById('btnParseBF');
+    btnSaveAF = document.getElementById('btnSaveAF');
+    btnSaveBF = document.getElementById('btnSaveBF');
     btnSwitchTable = document.getElementById('btnSwitchTable');
     calcDiv = document.getElementById('calcDiv');
+    configSelector = document.getElementById('configSelector');
     cbHideDisabled = document.getElementById('cbHideDisabled');
     ruleTextArea = document.getElementById("ruletextarea");
     txtFilterId = document.getElementById('txtFilterId');
     txtFilterName = document.getElementById('txtFilterName');
+    var reader = new JsonReader(ruleTextArea);
     CreateFilterChecks();
     btnClearFilters.onclick = function () { return ClearFilters(); };
     btnCheckShowAll.onclick = function () { return ShowHideAllColumns(true); };
@@ -44,13 +49,46 @@ window.onload = function () {
     btnCheckHideMulti.onclick = function () { return ShowHideMultilineFields(); };
     btnParseAF.onclick = function () { return ParseAFConfig(); };
     btnParseBF.onclick = function () { return ParseBFConfig(); };
+    btnSaveAF.onclick = function () { return SaveAFtoCSV(); };
+    btnSaveBF.onclick = function () { return SaveBFtoCSV(); };
     btnSwitchTable.onclick = function () { return SwitchTable(); };
-    btnLoadTestData.onclick = function () { return PopulateTextArea(); };
     calcDiv.appendChild(new DaySecCalculator().Build());
+    configSelector.appendChild(reader.Build());
     txtFilterId.onkeyup = function () { BuildAFTable(); BuildBFTable(); };
     txtFilterName.onkeyup = function () { BuildAFTable(); BuildBFTable(); };
     cbHideDisabled.onchange = function () { BuildAFTable(); BuildBFTable(); };
 };
+function SaveAFtoCSV() {
+    var csvContent = "data:text/csv;charset=utf-8,";
+    var ruleProperties = Object.getOwnPropertyNames(new AutofilerRule(0));
+    csvContent += ruleProperties.join(",") + "\n";
+    for (var afref in ruleList) {
+        var rule = ruleList[afref];
+        csvContent += rule.ToCsvRow();
+    }
+    var encodedUri = encodeURI(csvContent);
+    console.log(encodedUri);
+    var link = document.createElement("a");
+    link.href = encodedUri;
+    link.setAttribute("download", "Autofilerdata.csv");
+    document.body.appendChild(link);
+    link.click();
+}
+function SaveBFtoCSV() {
+    var csvContent = "data:text/csv;charset=utf-8,";
+    var bfProperties = Object.getOwnPropertyNames(new Basefolder());
+    csvContent += bfProperties.join(",") + "\n";
+    for (var bfref in bfList) {
+        var bf = bfList[bfref];
+        csvContent += bf.ToCsvRow();
+    }
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.href = encodedUri;
+    link.setAttribute("download", "Basefolderdata.csv");
+    document.body.appendChild(link);
+    link.click();
+}
 function ShowHideAllColumns(show) {
     var checkboxElementArray = document.getElementsByClassName("fieldcheck");
     for (var n = 0; n < checkboxElementArray.length; n++) {
@@ -63,7 +101,7 @@ function ShowHideMultilineFields() {
     var checkboxElementArray = document.getElementsByClassName("fieldcheck");
     for (var n = 0; n < checkboxElementArray.length; n++) {
         var checkboxtmp = checkboxElementArray[n];
-        if (checkboxtmp.name == "basefolderNames" || checkboxtmp.name == "basefolderLocations") {
+        if (checkboxtmp.name == "basefolders" || checkboxtmp.name == "basefolderLocations") {
             checkboxtmp.checked = !showHideMultiline;
         }
     }
@@ -80,25 +118,54 @@ function ClearFilters() {
 function ParseAFConfig() {
     var cfgText = ruleTextArea.value;
     ruleList = afParser.ParseAutofilerConfig(cfgText);
-    console.log("Rules found:" + ruleList.length);
-    BuildAFTable();
-    BuildBFTable();
+    console.log("Rules found: " + ruleList.length);
+    LinkRulesToBasefolders();
+    if (ruleList.length > 0) {
+        BuildAFTable();
+    }
+    if (bfList.length > 0) {
+        BuildBFTable();
+    }
     document.getElementById('h2RuleCount').innerHTML = "Autofiler Rules: " + ruleList.length;
 }
 function ParseBFConfig() {
     var bfText = bfTextArea.value;
     bfList = bfParser.ParseBasefolderDump(bfText);
     console.log("Basefolders found:" + bfList.length);
-    BuildBFTable();
+    LinkRulesToBasefolders();
+    if (bfList == [] || bfList.length > 0) {
+        BuildBFTable();
+    }
+    if (ruleList == [] || ruleList.length > 0) {
+        BuildAFTable();
+    }
     document.getElementById('h2BfCount').innerHTML = "Basefolders: " + bfList.length;
 }
+function LinkRulesToBasefolders() {
+    console.log("Linking stuff...");
+    if (bfList.length == 0 || ruleList.length == 0) {
+        console.log("Nothing to link.");
+        return;
+    }
+    for (var bfref in bfList) {
+        var bf = bfList[bfref];
+        bf.autofilerrules = ruleList.filter(FilterAFonBfId, bf.id);
+    }
+    for (var afref in ruleList) {
+        var rule = ruleList[afref];
+        for (var bfidref in rule.basefolder_ids) {
+            ruleList[afref].basefolders.push(bfList.filter(FilterBFonBFId, rule.basefolder_ids[bfidref])[0]);
+        }
+    }
+}
 function FilterAFonBfId(rule) {
-    if (rule.basefolders.indexOf(this.valueOf()) === -1) {
+    if (rule.basefolder_ids == null) {
         return false;
     }
-    else {
-        return true;
+    if (rule.basefolder_ids.indexOf(this.valueOf()) == -1) {
+        return false;
     }
+    return true;
 }
 function FilterBFonBFId(bf) {
     if (bf.id != this.valueOf()) {
@@ -146,13 +213,15 @@ function CreateFilterChecks() {
     }
 }
 function BuildAFTable() {
+    console.log("Building AF table...");
     if (ruleList == null || ruleList.length == 0) {
         return;
     }
     var tmpList;
     tmpList = ruleList;
     var checksBoolArray = [];
-    if (txtFilterId.value.length != 0) {
+    if (txtFilterId.value.length > 0) {
+        console.log("Filtering on ID " + Number(txtFilterId.value));
         tmpList = tmpList.filter(FilterAFonBfId, Number(txtFilterId.value));
     }
     if (txtFilterName.value.length != 0) {
@@ -201,6 +270,7 @@ function BuildAFTable() {
     sorttable.makeSortable(newTable);
 }
 function BuildBFTable() {
+    console.log("Building BF table...");
     var tmpAFList = ruleList;
     var tmpBFList = bfList;
     var tbl = document.getElementById("BFtable");
@@ -224,14 +294,13 @@ function BuildBFTable() {
     }
     for (var bfRef in tmpBFList) {
         bf = tmpBFList[bfRef];
-        tmpAFList = ruleList.filter(FilterAFonBfId, Number(bf.id));
         row = tbody.insertRow();
         row.insertCell(row.cells.length).innerHTML = String(bf.id.toString());
         row.insertCell(row.cells.length).innerHTML = bf.name;
         row.insertCell(row.cells.length).innerHTML = bf.location;
         var cell = row.insertCell(row.cells.length);
-        for (var ref in tmpAFList) {
-            var tmpRule = tmpAFList[ref];
+        for (var afref in bf.autofilerrules) {
+            var tmpRule = bf.autofilerrules[afref];
             cell.innerHTML += tmpRule.name + "<br/>";
         }
         tbody.appendChild(row);

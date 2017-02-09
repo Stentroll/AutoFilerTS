@@ -20,6 +20,7 @@
   <ItemGroup>
     <Content Include="app.js" />
     <Content Include="bfdump.txt" />
+    <Content Include="images\bgtexture.png" />
     <Content Include="css\app.css" />
     <None Include="DisplayPC.pubxml" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -42,6 +43,7 @@
     <Content Include="TSclasses\Basefolder.js" />
     <Content Include="TSclasses\BasefolderParser.js" />
     <Content Include="TSclasses\DaySecCalculator.js" />
+    <Content Include="TSclasses\JsonReader.js" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +52,7 @@
     <TypeScriptCompile Include="TSclasses\Basefolder.ts" />
     <TypeScriptCompile Include="TSclasses\BasefolderParser.ts" />
     <TypeScriptCompile Include="TSclasses\DaySecCalculator.ts" />
+    <TypeScriptCompile Include="TSclasses\JsonReader.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

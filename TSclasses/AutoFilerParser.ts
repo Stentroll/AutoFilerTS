@@ -8,9 +8,10 @@
 
         let ruleList: AutofilerRule[] = [];
 
-        if (cfgText == "") { return; }
-        if (cfgText == null) { return; }
+        if (cfgText == "") { return []; }
+        if (cfgText == null) { return []; }
 
+        // For every line in the AF configuration...
         for (let index in lines) {
             var line = lines[index];
             var statecheck: boolean = false;
@@ -73,10 +74,11 @@
                 }
             }
         }
-        console.log(defaultBFsString);
+
+        // If there is a base_folder_ids specified outside of the config we set those ids on all rules without specified bfs
         if (defaultBFsString !== null) {
             for (var ruleRef in ruleList) {
-                if (ruleList[ruleRef].basefolders === null) {
+                if (ruleList[ruleRef].basefolder_ids === null) {
                     console.log("Setting default BFs on:");
                     console.log(ruleList[ruleRef]);
                     ruleList[ruleRef].Set("base_folder_ids", defaultBFsString);

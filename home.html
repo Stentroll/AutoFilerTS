@@ -25,13 +25,16 @@
     <script src="TSclasses/AutoFilerParser.js"></script>
     <script src="TSclasses/BasefolderParser.js"></script>
     <script src="TSclasses/DaySecCalculator.js"></script>
+    <script src="TSclasses/JsonReader.js"></script>
+    
     <script src="app.js"></script>
     <link rel="stylesheet" href="css/app.css" type="text/css" />
 
 </head>
 <body>
-    <h1>AF Config Parser - 1.4</h1>
-    <button class="btn btn-secondary" style="margin-bottom:20px;" id="btnLoadTestData">Load test data</button>
+    <h1>AF Config Parser - 1.5</h1>
+    <!--<button class="btn btn-secondary" style="margin-bottom:20px;" id="btnLoadTestData">Load test data</button>-->
+    <div id="configSelector"></div>
 
     <div id="inputContainer">
         <div id="textAreaDiv">
@@ -112,6 +115,8 @@
                         </div>
                     </div>
                 </div>
+            <button class="btn btn-secondary" id="btnSaveAF">Save Rules to CSV</button>
+            <button class="btn btn-secondary" id="btnSaveBF">Save BFs to CSV</button>
             </div>
         </div>
         <button class="btn btn-secondary" id="btnSwitchTable">Go to basefolder view</button>

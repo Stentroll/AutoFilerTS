@@ -1,8 +1,8 @@
 ﻿/*Type styles*/
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #222;
     color: #ddd;
+    background-image: url('../images/bgtexture.png');
     overflow-y: scroll;
     padding: 20px;
 }
@@ -19,6 +19,9 @@ input {
 
 .btn {
     color: black;
+    margin: 8px;
+    margin-left: 0px;
+
 }
 
 /*Class styles*/
@@ -75,7 +78,11 @@ thead tr:hover {}
 }
 
 #tablediv tr:nth-child(even) {
-    background-color: #252525;
+    background-color: #222222;
+}
+
+#tablediv tr:nth-child(odd) {
+    background-color: #111111;
 }
 
 #filters {
@@ -90,9 +97,7 @@ thead tr:hover {}
 }
 
 #filters label {
-    /*float: left;*/
     width: 100px;
-    /*margin-right: 10px;*/
     vertical-align: central;
     
 }
@@ -204,4 +209,8 @@ table.sortable th:after {
 
 #sorttable_sortrevind {
     display: none;
+}
+
+input::-webkit-calendar-picker-indicator {
+  display: none;
 }

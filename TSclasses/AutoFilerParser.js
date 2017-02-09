@@ -8,10 +8,10 @@ var AutofilerParser = (function () {
         var defaultBFsString = null;
         var ruleList = [];
         if (cfgText == "") {
-            return;
+            return [];
         }
         if (cfgText == null) {
-            return;
+            return [];
         }
         for (var index in lines) {
             var line = lines[index];
@@ -66,10 +66,9 @@ var AutofilerParser = (function () {
                 }
             }
         }
-        console.log(defaultBFsString);
         if (defaultBFsString !== null) {
             for (var ruleRef in ruleList) {
-                if (ruleList[ruleRef].basefolders === null) {
+                if (ruleList[ruleRef].basefolder_ids === null) {
                     console.log("Setting default BFs on:");
                     console.log(ruleList[ruleRef]);
                     ruleList[ruleRef].Set("base_folder_ids", defaultBFsString);

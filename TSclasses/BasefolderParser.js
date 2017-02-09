@@ -42,7 +42,6 @@ var BasefolderParser = (function () {
         if (typeof bf != 'undefined') {
             bfList.push(bf);
         }
-        console.log("Basefolders found:" + bfList.length);
         return bfList;
     };
     BasefolderParser.prototype.Set = function (bf, field, value) {

@@ -10,6 +10,8 @@ var bfParser = new BasefolderParser();
 var ruleList : AutofilerRule[] = [];
 var bfList: Basefolder[] = [];
 
+
+
 var viewAfTable: boolean = true;
 var showHideMultiline: boolean = true;
  
@@ -28,13 +30,15 @@ var btnCheckHideAll: HTMLInputElement;
 var btnCheckHideMulti: HTMLInputElement;
 var btnParseAF: HTMLButtonElement;
 var btnParseBF: HTMLButtonElement;
-var btnLoadTestData: HTMLButtonElement;
-
+var btnSaveAF: HTMLButtonElement;
+var btnSaveBF: HTMLButtonElement;
+//var btnLoadTestData: HTMLButtonElement;
 var calcDiv: HTMLDivElement;
+var configSelector: HTMLDivElement;
 
 declare var sorttable: any;
 
-window.onload = () => {    
+window.onload = () => {
     //Assign elements
     afTableDiv = <HTMLDivElement>document.getElementById("af-table-div");
     bfTableDiv = <HTMLDivElement>document.getElementById("bf-table-div");
@@ -43,15 +47,21 @@ window.onload = () => {
     btnCheckHideMulti = <HTMLInputElement>document.getElementById("btnCheckHideMulti");
     btnCheckShowAll = <HTMLInputElement>document.getElementById("btnCheckShowAll");
     btnClearFilters = <HTMLButtonElement>document.getElementById('ButtonClearFilters');
-    btnLoadTestData = <HTMLButtonElement>document.getElementById('btnLoadTestData');
+    //btnLoadTestData = <HTMLButtonElement>document.getElementById('btnLoadTestData');
     btnParseAF = <HTMLButtonElement>document.getElementById('btnParseAF');
     btnParseBF = <HTMLButtonElement>document.getElementById('btnParseBF');
+    btnSaveAF = <HTMLButtonElement>document.getElementById('btnSaveAF');
+    btnSaveBF = <HTMLButtonElement>document.getElementById('btnSaveBF');
     btnSwitchTable = <HTMLButtonElement>document.getElementById('btnSwitchTable');
     calcDiv = <HTMLDivElement>document.getElementById('calcDiv');
+    configSelector = <HTMLDivElement>document.getElementById('configSelector');
     cbHideDisabled = <HTMLInputElement>document.getElementById('cbHideDisabled');
     ruleTextArea = <HTMLTextAreaElement>document.getElementById("ruletextarea");
     txtFilterId = <HTMLInputElement>document.getElementById('txtFilterId');
     txtFilterName = <HTMLInputElement>document.getElementById('txtFilterName');
+
+
+    var reader = new JsonReader(ruleTextArea);
 
     //Procedurally create the show/hide column checkboxes
     CreateFilterChecks();
@@ -63,16 +73,71 @@ window.onload = () => {
     btnCheckHideMulti.onclick = () => ShowHideMultilineFields();
     btnParseAF.onclick = () => ParseAFConfig();
     btnParseBF.onclick = () => ParseBFConfig();
+
+    btnSaveAF.onclick = () => SaveAFtoCSV();
+    btnSaveBF.onclick = () => SaveBFtoCSV();
+
     btnSwitchTable.onclick = () => SwitchTable();
-    btnLoadTestData.onclick = () => PopulateTextArea();
+    //btnLoadTestData.onclick = () => PopulateTextArea();
 
     // Create the day/sec calculator
     calcDiv.appendChild(new DaySecCalculator().Build());
+    configSelector.appendChild(reader.Build());
 
     txtFilterId.onkeyup = () => { BuildAFTable(); BuildBFTable(); };
     txtFilterName.onkeyup = () => { BuildAFTable(); BuildBFTable();  };
     cbHideDisabled.onchange = () => { BuildAFTable(); BuildBFTable(); };
 };
+
+
+function SaveAFtoCSV(): void {
+    let csvContent = "data:text/csv;charset=utf-8,";
+
+    // Create a temporary AutofilerRule to get the headers for the csv document
+    let ruleProperties = Object.getOwnPropertyNames(new AutofilerRule(0));
+
+    // Add headers to the csv with a newline
+    csvContent += ruleProperties.join(",") + "\n";
+
+    for (let afref in ruleList) {
+        let rule = ruleList[afref];
+        csvContent += rule.ToCsvRow();
+    }
+    
+    let encodedUri = encodeURI(csvContent);
+    console.log(encodedUri);
+
+    // Creates a link element to our data and then makes the click on it to download
+    let link = <HTMLAnchorElement>document.createElement("a");
+    link.href = encodedUri;
+    link.setAttribute("download", "Autofilerdata.csv");
+    document.body.appendChild(link); // Required for FF
+    link.click(); // This will download the data file named "my_data.csv".
+}
+
+function SaveBFtoCSV(): void {
+    let csvContent = "data:text/csv;charset=utf-8,";
+
+    // Create a temporary Basefolder to get the headers for the csv document
+    let bfProperties = Object.getOwnPropertyNames(new Basefolder());
+
+    // Add headers to the csv with a newline
+    csvContent += bfProperties.join(",") + "\n";
+
+    for (let bfref in bfList) {
+        let bf = bfList[bfref];
+        csvContent += bf.ToCsvRow();
+    }
+
+    let encodedUri = encodeURI(csvContent);
+
+    // Creates a link element to our data and then makes the click on it to download
+    let link = <HTMLAnchorElement>document.createElement("a");
+    link.href = encodedUri;
+    link.setAttribute("download", "Basefolderdata.csv");
+    document.body.appendChild(link); // Required for FF
+    link.click(); // This will download the data file named "my_data.csv".
+}
 
 function ShowHideAllColumns(show: boolean): void {
     var checkboxElementArray = document.getElementsByClassName("fieldcheck");
@@ -90,7 +155,7 @@ function ShowHideMultilineFields(): void {
     for (var n = 0; n < checkboxElementArray.length; n++) {
         var checkboxtmp: HTMLInputElement = <HTMLInputElement>checkboxElementArray[n];
         
-        if (checkboxtmp.name == "basefolderNames" || checkboxtmp.name == "basefolderLocations") {
+        if (checkboxtmp.name == "basefolders" || checkboxtmp.name == "basefolderLocations") {
             checkboxtmp.checked = !showHideMultiline;
         }
     }
@@ -109,28 +174,70 @@ function ClearFilters(): void {
 function ParseAFConfig() {
     var cfgText = ruleTextArea.value;
     ruleList = afParser.ParseAutofilerConfig(cfgText);
-    console.log("Rules found:" + ruleList.length);
-    BuildAFTable();
-    BuildBFTable();
-    document.getElementById('h2RuleCount').innerHTML = "Autofiler Rules: " + ruleList.length;
+    console.log("Rules found: " + ruleList.length);
 
+    LinkRulesToBasefolders();
+
+    if (ruleList.length > 0) {
+        BuildAFTable();
+    }
+
+    if (bfList.length > 0) {
+        BuildBFTable();
+    }
+
+    document.getElementById('h2RuleCount').innerHTML = "Autofiler Rules: " + ruleList.length;
 }
 
 function ParseBFConfig() {
     var bfText: string = bfTextArea.value;
     bfList = bfParser.ParseBasefolderDump(bfText);
     console.log("Basefolders found:" + bfList.length);
-    BuildBFTable();
+
+    LinkRulesToBasefolders();
+
+    if (bfList == [] || bfList.length > 0) {
+        BuildBFTable();
+    }
+
+    if (ruleList == [] || ruleList.length > 0) {
+        BuildAFTable();
+    }
+
     document.getElementById('h2BfCount').innerHTML = "Basefolders: " + bfList.length;
 }
 
+function LinkRulesToBasefolders() {
+    console.log("Linking stuff...");
+
+    if (bfList.length == 0 || ruleList.length == 0) {
+        console.log("Nothing to link.");
+        return;
+    }
+
+    for (var bfref in bfList) {
+        var bf = bfList[bfref];
+        bf.autofilerrules = ruleList.filter(FilterAFonBfId, bf.id);
+    }
+
+    for (var afref in ruleList) {
+        var rule = ruleList[afref];
+
+        for (var bfidref in rule.basefolder_ids) {
+            ruleList[afref].basefolders.push(bfList.filter(FilterBFonBFId, rule.basefolder_ids[bfidref])[0]);
+        }
+    }
+}
+
 function FilterAFonBfId(rule) {
-    if (rule.basefolders.indexOf(this.valueOf()) === -1) {
+    if (rule.basefolder_ids == null) {
         return false;
     }
-    else {
-        return true;
+    if (rule.basefolder_ids.indexOf(this.valueOf()) == -1) {
+        return false;
     }
+
+    return true;
 }
 
 function FilterBFonBFId(bf) {
@@ -190,6 +297,7 @@ function CreateFilterChecks() {
 }
 
 function BuildAFTable(): void {
+    console.log("Building AF table...");
 
     if (ruleList == null || ruleList.length == 0) {
         return;
@@ -200,7 +308,8 @@ function BuildAFTable(): void {
     var checksBoolArray: boolean[] = [];
 
     //Handle filtering functions
-    if (txtFilterId.value.length != 0) {
+    if (txtFilterId.value.length > 0) {
+        console.log("Filtering on ID " + Number(txtFilterId.value));
         tmpList = tmpList.filter(FilterAFonBfId, Number(txtFilterId.value));
     }
 
@@ -226,7 +335,6 @@ function BuildAFTable(): void {
     var headrow: HTMLTableRowElement = <HTMLTableRowElement>thead.insertRow();
     var properties = Object.getOwnPropertyNames(new AutofilerRule(null));
     var headerCell: HTMLTableHeaderCellElement;
-
 
     newTable.id = "AFtable";
     newTable.className = 'sortable table-hover table-responsive';
@@ -258,7 +366,6 @@ function BuildAFTable(): void {
         tbody.appendChild(row);
     }
 
-
     //tbl.remove();
     tbl.parentNode.removeChild(tbl);
     afTableDiv.appendChild(newTable);
@@ -267,6 +374,7 @@ function BuildAFTable(): void {
 }
 
 function BuildBFTable(): void {
+    console.log("Building BF table...");
     var tmpAFList: AutofilerRule[] = ruleList;
     var tmpBFList: Basefolder[] = bfList
 
@@ -296,7 +404,6 @@ function BuildBFTable(): void {
 
     for (var bfRef in tmpBFList) {
         bf = tmpBFList[bfRef];
-        tmpAFList = ruleList.filter(FilterAFonBfId, Number(bf.id));
 
         //Create a blank table row
         row = tbody.insertRow();
@@ -305,9 +412,9 @@ function BuildBFTable(): void {
         row.insertCell(row.cells.length).innerHTML = bf.location;
 
         var cell = row.insertCell(row.cells.length);
-        
-        for (var ref in tmpAFList) {
-            var tmpRule: AutofilerRule = tmpAFList[ref];
+
+        for (var afref in bf.autofilerrules) {
+            var tmpRule: AutofilerRule = bf.autofilerrules[afref];
             cell.innerHTML += tmpRule.name + "<br/>";
         }
             
